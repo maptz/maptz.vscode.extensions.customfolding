@@ -1,0 +1,1 @@
+# maptz.vscode.extensions.customfolding

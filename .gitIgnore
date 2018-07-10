@@ -1,0 +1,29 @@
+#OS junk files
+[Tt]humbs.db
+*.DS_Store
+
+#Visual Studio files
+*.user
+*.suo
+[Oo]bj/
+[Bb]in
+[Dd]ebug*/
+[Rr]elease*/
+
+#Node Tools
+*.dat
+*.tmp
+
+#NuGet
+packages/
+*.nupkg
+
+#Gulp TSC
+gulp-tsc*/
+
+#Node modules
+node_modules/
+.tscache
+
+#Bower components
+bower_components/
