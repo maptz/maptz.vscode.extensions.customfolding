@@ -31,7 +31,7 @@ export function activate(context: vscode.ExtensionContext) {
     //     vscode.window.showInformationMessage('ExpandAll');
     //     vscode.commands.executeCommand("editor.unfoldAll");
     // });
-    disposables.push(disposable2);
+    //disposables.push(disposable2);
 
     let disposable3 = vscode.commands.registerCommand('regionfolder.wrapWithRegion', () => {
         // The code you place here will be executed every time your command is executed
