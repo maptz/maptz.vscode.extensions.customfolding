@@ -19,23 +19,21 @@ export function activate(context: vscode.ExtensionContext) {
     console.log('Congratulations, your extension "code-fold-extension" is now active!');
 
     var disposables = [];
-    let disposable1 = vscode.commands.registerCommand('extension.collapseAll', () => {
-        vscode.commands.executeCommand("editor.foldAll");
-        vscode.window.showInformationMessage('CollapseAll');
-    });
-    disposables.push(disposable1);
+    // let disposable1 = vscode.commands.registerCommand('extension.collapseAll', () => {
+    //     vscode.commands.executeCommand("editor.foldAll");
+    //     vscode.window.showInformationMessage('CollapseAll');
+    // });
+    // disposables.push(disposable1);
 
-    let disposable2 = vscode.commands.registerCommand('extension.expandAll', () => {
-        // The code you place here will be executed every time your command is executed
-        // Display a message box to the user
-        vscode.window.showInformationMessage('ExpandAll');
-        vscode.commands.executeCommand("editor.unfoldAll");
-
-
-    });
+    // let disposable2 = vscode.commands.registerCommand('extension.expandAll', () => {
+    //     // The code you place here will be executed every time your command is executed
+    //     // Display a message box to the user
+    //     vscode.window.showInformationMessage('ExpandAll');
+    //     vscode.commands.executeCommand("editor.unfoldAll");
+    // });
     disposables.push(disposable2);
 
-    let disposable3 = vscode.commands.registerCommand('extension.wrapWithRegion', () => {
+    let disposable3 = vscode.commands.registerCommand('regionfolder.wrapWithRegion', () => {
         // The code you place here will be executed every time your command is executed
         // Display a message box to the user
         vscode.window.showInformationMessage('wrap');

@@ -2,26 +2,27 @@
 
 This extension enhances the default code folding abilities of Visual Studio Code editor. Regions of code that you'd like to be folded can be wrapped with `#region` comments. The precise format of the comment depends on the language. There are currently two styles of comments: 
 
--  /* #region [*optional region name*] */ 
-- &lt;!-- #region [*optional region name*] --&gt;
+-  `/* #region [optional region name] */` 
+- `<!-- #region [optional region name] -->`
 
 For instance, for a C# document, you can define a foldable region with the following tags: 
 
-   /* #region Main */
-   public static void Main(string args[])
-   {
+    /* #region Main */
+    public static void Main(string args[])
+    {
        //Your code goes here
-   }
-   /* #endregion */
+    }
+    /* #endregion */
 
 
 For HTML style languages, you could define a fodable region with the following tags:
 
 
-   &lt;!-- #region Body --&gt;
-   &lt;body--&gt;&lt;/body--&gt;
-   &lt;!-- #endregion --&gt;
+    <!-- #region Body -->
+    <body></body>
+    <!-- #endregion -->
 
+> The extension is still alpha quality, so please do log any bugs on Github [here](https://github.com/maptz/Maptz.VSCode.Extensions.CustomFolding/issues).
 
 ## Commands
 
