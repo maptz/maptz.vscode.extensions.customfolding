@@ -19,7 +19,8 @@ For HTML style languages, you could define a fodable region with the following t
 
 
     <!-- #region Body -->
-    <body></body>
+    <body>
+    </body>
     <!-- #endregion -->
 
 > The extension is still alpha quality, so please do log any bugs on Github [here](https://github.com/maptz/Maptz.VSCode.Extensions.CustomFolding/issues).
