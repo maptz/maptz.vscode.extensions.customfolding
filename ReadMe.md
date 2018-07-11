@@ -1,6 +1,10 @@
 # Visual Studio Code Custom Folding Extension
 
-This extension enhances the default code folding abilities of Visual Studio Code editor. Regions of code that you'd like to be folded can be wrapped with `#region` comments. The precise format of the comment depends on the language. There are currently two styles of comments: 
+This extension enhances the default code folding abilities of Visual Studio Code editor. Regions of code that you'd like to be folded can be wrapped with `#region` comments. 
+
+![Custom Folding](https://raw.githubusercontent.com/maptz/Maptz.VSCode.Extensions.customfolding/master/imgs/CSharp_region_wrap.gif)
+
+The precise format of the comment depends on the language. There are currently two styles of comments: 
 
 -  `/* #region [optional region name] */` 
 - `<!-- #region [optional region name] -->`
