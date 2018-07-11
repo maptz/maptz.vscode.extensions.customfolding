@@ -42,3 +42,7 @@ Alternatively, open Visual Studio code, press `Ctrl+P` and type:
 ## Source Code
 
 The source code is available on GitHub [here](https://github.com/maptz/Maptz.VSCode.Extensions.CustomFolding).
+
+## Other Extensions
+
+View other extensions from [Maptz](https://marketplace.visualstudio.com/publishers/maptz)
