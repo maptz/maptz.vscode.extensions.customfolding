@@ -20,8 +20,8 @@
     "contributes": {
         "commands": [
             {
-                "command": "regionfolder.wrapWithRegion",
-                "title": "Wrap with region"
+                "command": "regionfolder.collapseAllRegions",
+                "title": "Collapse all #regions"
             }
         ],
         "keybindings": [

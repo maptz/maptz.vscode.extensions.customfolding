@@ -16,22 +16,27 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Use the console to output diagnostic information (console.log) and errors (console.error)
     // This line of code will only be executed once when your extension is activated
-    console.log('Congratulations, your extension "code-fold-extension" is now active!');
+
 
     var disposables = [];
-    // let disposable1 = vscode.commands.registerCommand('extension.collapseAll', () => {
+    // let disposable1 = vscode.commands.registerCommand('regionfolder.collapseAllRegions', () => {
+    //    var ate =  vscode.window.activeTextEditor;
+    //    if (ate){
+
+    //    }
+
     //     vscode.commands.executeCommand("editor.foldAll");
     //     vscode.window.showInformationMessage('CollapseAll');
     // });
     // disposables.push(disposable1);
 
-    // let disposable2 = vscode.commands.registerCommand('extension.expandAll', () => {
+    // let disposable2 = vscode.commands.registerCommand('regionfolder.expandAllRegions', () => {
     //     // The code you place here will be executed every time your command is executed
     //     // Display a message box to the user
     //     vscode.window.showInformationMessage('ExpandAll');
     //     vscode.commands.executeCommand("editor.unfoldAll");
     // });
-    //disposables.push(disposable2);
+    // disposables.push(disposable2);
 
     let disposable3 = vscode.commands.registerCommand('regionfolder.wrapWithRegion', () => {
         // The code you place here will be executed every time your command is executed
@@ -87,19 +92,23 @@ export function activate(context: vscode.ExtensionContext) {
     }
 }
 
-var supportedLanguages = ["c",
+var supportedLanguages = [
+    "ahk",
+    "c",
     "cpp",
     "csharp",
     "css",
     "javascript",
     "json",
+    "lua",
     "less",
     "typescript",
     "html",
+    "sql",
     "markdown"];
 
 var getEOLStr = function (eol: vscode.EndOfLine) {
-    if (eol == vscode.EndOfLine.CRLF) return "\r\n";
+    if (eol === vscode.EndOfLine.CRLF) { return "\r\n";}
     return "\n";
 }
 
@@ -128,8 +137,28 @@ export class LanguageIdRegionLookup {
 
     }
 
+    private static getLuaStyleRegions() {
+        var retval = new RegionText();
+        retval.start = "--#region  ";
+        retval.end = "--#endregion";
+        retval.nameInsertionIndex = 1;
+        return retval;
+
+    }
+
+
+    private static getAutoHotKeyStyleRegions() {
+        var retval = new RegionText();
+        retval.start = "; #region  ";
+        retval.end = "; #endregion";
+        retval.nameInsertionIndex = 1;
+        return retval;
+
+    }
     public getRegionText(languageId: string) {
         //https://code.visualstudio.com/docs/languages/identifiers
+        console.log("Getting region styles for language: " + languageId);
+
         switch (languageId) {
             case "c":
             case "cpp":
@@ -138,11 +167,16 @@ export class LanguageIdRegionLookup {
             case "javascript":
             case "json":
             case "less":
+            case "sql":
             case "typescript":
                 return LanguageIdRegionLookup.getCStyleRegions();
+            case "lua":
+                return LanguageIdRegionLookup.getLuaStyleRegions();
             case "html":
             case "markdown":
                 return LanguageIdRegionLookup.getHtmlStyleRegions();
+            case "ahk":
+                return LanguageIdRegionLookup.getAutoHotKeyStyleRegions();
             default:
                 return LanguageIdRegionLookup.getCStyleRegions();
         }

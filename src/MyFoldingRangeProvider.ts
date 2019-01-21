@@ -5,15 +5,28 @@ import * as vscode from 'vscode';
 
 export class MyFoldingRangeProvider implements vscode.FoldingRangeProvider {
 
-    private static getRegionsTags(): { start: string, end: string }[] {
+    private static getRegionsTags(): { language: string[], start: string, end: string }[] {
         var retval = [];
         retval.push({
+            language: ["c#"],
             end: "/\\*[\\s]*#endregion",
             start: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$",
         }, {
+            language: ["html"],
                 end: "\\<!--[\\s]*#endregion",
                 start: "\\<!--[\\s]*#region[\\s]*(.*)",
-            });
+            },
+            {
+                language: ["lua"],
+                end: "--[\\s]*#endregion",
+                start: "--[\\s]*#region[\\s]*(.*)",
+            },
+            {
+                language: ["ahk"],
+                end: ";[\\s]*#endregion",
+                start: ";[\\s]*#region[\\s]*(.*)",
+            }
+        );
         return retval;
     }
 
@@ -41,7 +54,7 @@ export class MyFoldingRangeProvider implements vscode.FoldingRangeProvider {
                     })
                 }
                 else if (end.exec(line)) {
-                    if (startedRegions.length == 0) {
+                    if (startedRegions.length === 0) {
                         errors.push(`Found an end region with no matching start tag at line ${i}`);
                         continue;
                     }
