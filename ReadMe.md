@@ -47,6 +47,18 @@ Alternatively, open Visual Studio code, press `Ctrl+P` and type:
 
 The source code is available on GitHub [here](https://github.com/maptz/Maptz.VSCode.Extensions.CustomFolding).
 
+## Release Notes
+
+### Version 0.0.9
+
+- Updated NPM dependencies
+
+### Version 0.0.8
+
+- Added support for .ahk files. [Issue #1](https://github.com/maptz/maptz.vscode.extensions.customfolding/issues/1)
+- Added support for .lua files [Issue #3](https://github.com/maptz/maptz.vscode.extensions.customfolding/issues/3).
+- Added support for .sql files. [Issue #4](https://github.com/maptz/maptz.vscode.extensions.customfolding/issues/4)
+
 ## Other Extensions
 
 View other extensions from [Maptz](https://marketplace.visualstudio.com/publishers/maptz)
