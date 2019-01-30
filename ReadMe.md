@@ -49,6 +49,10 @@ The source code is available on GitHub [here](https://github.com/maptz/Maptz.VSC
 
 ## Release Notes
 
+### Version 0.0.11
+
+- Added support for .fish files. [Issue #9](https://github.com/maptz/maptz.vscode.extensions.customfolding/issues/9)
+
 ### Version 0.0.10
 
 - Added support for .dart files. [Issue #8](https://github.com/maptz/maptz.vscode.extensions.customfolding/issues/8)

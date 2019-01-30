@@ -113,6 +113,7 @@ var supportedLanguages = [
   "csharp",
   "css",
   "dart",
+  "fish",
   "javascript",
   "json",
   "lua",
@@ -124,7 +125,7 @@ var supportedLanguages = [
   "markdown"
 ];
 
-var getEOLStr = function(eol: vscode.EndOfLine) {
+var getEOLStr = function (eol: vscode.EndOfLine) {
   if (eol === vscode.EndOfLine.CRLF) {
     return "\r\n";
   }
@@ -142,6 +143,14 @@ export class LanguageIdRegionLookup {
     retval.start = "/* #region  */";
     retval.end = "/* #endregion */";
     retval.nameInsertionIndex = 3;
+    return retval;
+  }
+
+  private static getFishStyleRegions() {
+    var retval = new RegionText();
+    retval.start = "#region ";
+    retval.end = "#endregion";
+    retval.nameInsertionIndex = 0;
     return retval;
   }
 
@@ -194,6 +203,8 @@ export class LanguageIdRegionLookup {
       case "swift":
       case "dart":
         return LanguageIdRegionLookup.getSwiftDartStyleRegions();
+      case "fish":
+        return LanguageIdRegionLookup.getFishStyleRegions();
       case "lua":
         return LanguageIdRegionLookup.getLuaStyleRegions();
       case "html":
@@ -208,4 +219,4 @@ export class LanguageIdRegionLookup {
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
