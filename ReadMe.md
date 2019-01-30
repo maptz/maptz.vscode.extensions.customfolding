@@ -49,6 +49,11 @@ The source code is available on GitHub [here](https://github.com/maptz/Maptz.VSC
 
 ## Release Notes
 
+### Version 0.0.10
+
+- Added support for .dart files. [Issue #8](https://github.com/maptz/maptz.vscode.extensions.customfolding/issues/8)
+- Added support for .swift files. [Issue #7](https://github.com/maptz/maptz.vscode.extensions.customfolding/issues/7)
+
 ### Version 0.0.9
 
 - Updated NPM dependencies

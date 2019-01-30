@@ -17,6 +17,16 @@ export class MyFoldingRangeProvider implements vscode.FoldingRangeProvider {
                 start: "\\<!--[\\s]*#region[\\s]*(.*)",
             },
             {
+                language: ["dart"],
+                end: "/\/\[\\s]*#endregion",
+                start: "/\/\[\\s]*#region[\\s]*(.*)",
+            },
+            {
+                language: ["swift"],
+                end: "/\/\[\\s]*#endregion",
+                start: "/\/\[\\s]*#region[\\s]*(.*)",
+            },
+            {
                 language: ["lua"],
                 end: "--[\\s]*#endregion",
                 start: "--[\\s]*#region[\\s]*(.*)",
