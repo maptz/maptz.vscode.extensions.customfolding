@@ -7,11 +7,13 @@ export class MyFoldingRangeProvider implements vscode.FoldingRangeProvider {
 
     private static getRegionsTags(): { language: string[], start: string, end: string }[] {
         var retval = [];
-        retval.push({
+        retval.push(
+            {
             language: ["c#"],
-            end: "/\\*[\\s]*#endregion",
-            start: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$",
-        }, {
+                end: "/\\*[\\s]*#endregion",
+                start: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$",
+            },
+            {
             language: ["html"],
                 end: "\\<!--[\\s]*#endregion",
                 start: "\\<!--[\\s]*#region[\\s]*(.*)",
@@ -40,7 +42,12 @@ export class MyFoldingRangeProvider implements vscode.FoldingRangeProvider {
                 language: ["ahk"],
                 end: ";[\\s]*#endregion",
                 start: ";[\\s]*#region[\\s]*(.*)",
-            }
+            },
+            {
+            language: ["go"],
+                end: "//[\\s]*#endregion",
+                start: "^[\\s]*//[\\s]*#region[\\s]*(.*)[\\s]*[\\s]*$",
+            },
         );
         return retval;
     }

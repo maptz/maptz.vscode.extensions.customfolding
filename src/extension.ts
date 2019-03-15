@@ -122,7 +122,8 @@ var supportedLanguages = [
   "html",
   "sql",
   "swift",
-  "markdown"
+  "markdown",
+  "go"
 ];
 
 var getEOLStr = function (eol: vscode.EndOfLine) {
@@ -200,6 +201,7 @@ export class LanguageIdRegionLookup {
       case "sql":
       case "typescript":
         return LanguageIdRegionLookup.getCStyleRegions();
+      case "go":
       case "swift":
       case "dart":
         return LanguageIdRegionLookup.getSwiftDartStyleRegions();
