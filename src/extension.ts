@@ -3,49 +3,48 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 import * as Maptz from "./MyFoldingRangeProvider";
+import * as IConfiguration from "./IConfiguration";
 
-console.log("maptz-");
+let loadedConfig = vscode.workspace
+  .getConfiguration()
+  .get<IConfiguration.IConfiguration>("maptz.regionfolder");
+let config: IConfiguration.IConfiguration = Object.assign(
+  {},
+  IConfiguration.DefaultConfiguration
+);
+config = Object.assign(config, loadedConfig);
 
-/* #region */
-//Some code goes here
-/* #endregion */
+//vscode.window.showInformationMessage("wrap");
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
+const supportedLanguages: string[] = [];
+for (let prop in config) {
+  if (prop.startsWith("[") && prop.endsWith("]")) {
+    const languageName = prop.substr(1, prop.length - 2);
+    supportedLanguages.push(languageName);
+    console.log("Supported languages: " + languageName);
+  }
+}
+
 export function activate(context: vscode.ExtensionContext) {
-  // Use the console to output diagnostic information (console.log) and errors (console.error)
-  // This line of code will only be executed once when your extension is activated
-
   var disposables = [];
-  // let disposable1 = vscode.commands.registerCommand('regionfolder.collapseAllRegions', () => {
-  //    var ate =  vscode.window.activeTextEditor;
-  //    if (ate){
-
-  //    }
-
-  //     vscode.commands.executeCommand("editor.foldAll");
-  //     vscode.window.showInformationMessage('CollapseAll');
-  // });
-  // disposables.push(disposable1);
-
-  // let disposable2 = vscode.commands.registerCommand('regionfolder.expandAllRegions', () => {
-  //     // The code you place here will be executed every time your command is executed
-  //     // Display a message box to the user
-  //     vscode.window.showInformationMessage('ExpandAll');
-  //     vscode.commands.executeCommand("editor.unfoldAll");
-  // });
-  // disposables.push(disposable2);
-
   let disposable3 = vscode.commands.registerCommand(
     "regionfolder.wrapWithRegion",
     () => {
-      // The code you place here will be executed every time your command is executed
-      // Display a message box to the user
-      vscode.window.showInformationMessage("wrap");
       if (vscode.window.activeTextEditor) {
+        /* #region Get the configuration for the current language */
         var ate = vscode.window.activeTextEditor;
-        var lookup = new LanguageIdRegionLookup();
-        var regionText = lookup.getRegionText(ate.document.languageId);
+        const languageId = ate.document.languageId;
+        const currentLanguageConfig = config["[" + languageId + "]"];
+        if (
+          typeof currentLanguageConfig === "undefined" ||
+          !currentLanguageConfig
+        ) {
+          vscode.window.showInformationMessage("Maptz Region Folding. No region folding available for language '" + languageId + "'. Check that you have the language extension installed for these files.");
+          return;
+        }
+        /* #endregion */
+
+        /* #region Check if there is anything selected. */
         if (ate.selections.length > 1 || ate.selections.length < 1) {
           return;
         }
@@ -54,6 +53,7 @@ export function activate(context: vscode.ExtensionContext) {
         if (sel.isEmpty) {
           return;
         }
+        /* #endregion */
 
         var linePrefix = ate.document.getText(
           new vscode.Range(new vscode.Position(sel.start.line, 0), sel.start)
@@ -64,17 +64,23 @@ export function activate(context: vscode.ExtensionContext) {
         }
         var eol = getEOLStr(ate.document.eol);
 
+        //Get the position of [NAME] in the fold start template.
+        let regionStartTemplate = currentLanguageConfig.foldStart;
+        const idx = regionStartTemplate.indexOf("[NAME]");
+        const nameInsertionIndex = idx < 0 ? 0 : regionStartTemplate.length - "[NAME]".length - idx;
+        const regionStartText = regionStartTemplate.replace("[NAME]", "");
+                
         ate
           .edit(edit => {
-            edit.insert(sel.end, eol + addPrefix + regionText.end);
-            edit.insert(sel.start, regionText.start + eol + addPrefix);
+            //Insert the #region, #endregion tags
+            edit.insert(sel.end, eol + addPrefix + currentLanguageConfig.foldEnd);
+            edit.insert(sel.start, regionStartText + eol + addPrefix);
           })
           .then(edit => {
+            //Now, move the selection point to the [NAME] position.
             var sel = ate.selection;
             var newLine = sel.start.line - 1;
-            var newChar =
-              ate.document.lineAt(newLine).text.length -
-              regionText.nameInsertionIndex;
+            var newChar = ate.document.lineAt(newLine).text.length - nameInsertionIndex;
             var newStart = sel.start.translate(
               newLine - sel.start.line,
               newChar - sel.start.character
@@ -82,12 +88,12 @@ export function activate(context: vscode.ExtensionContext) {
             var newSelection = new vscode.Selection(newStart, newStart);
             ate.selections = [newSelection];
 
-            //todo work out how to check 'editorHasDocumentFormattingProvider'
-            vscode.commands.executeCommand(
-              "editor.action.formatDocument",
-              "editorHasDocumentFormattingProvider && editorTextFocus",
-              true
-            );
+            //Format the document
+             vscode.commands.executeCommand(
+               "editor.action.formatDocument",
+               "editorHasDocumentFormattingProvider && editorTextFocus",
+               true
+             );
           });
       }
     }
@@ -98,7 +104,7 @@ export function activate(context: vscode.ExtensionContext) {
   //{ scheme: 'file', language:
   vscode.languages.registerFoldingRangeProvider(
     supportedLanguages,
-    new Maptz.MyFoldingRangeProvider()
+    new Maptz.MyFoldingRangeProvider(config)
   );
 
   for (var disp of disposables) {
@@ -106,119 +112,12 @@ export function activate(context: vscode.ExtensionContext) {
   }
 }
 
-var supportedLanguages = [
-  "ahk",
-  "c",
-  "cpp",
-  "csharp",
-  "css",
-  "dart",
-  "fish",
-  "javascript",
-  "json",
-  "lua",
-  "less",
-  "typescript",
-  "html",
-  "sql",
-  "swift",
-  "markdown",
-  "go"
-];
-
-var getEOLStr = function (eol: vscode.EndOfLine) {
+var getEOLStr = function(eol: vscode.EndOfLine) {
   if (eol === vscode.EndOfLine.CRLF) {
     return "\r\n";
   }
   return "\n";
 };
 
-export class RegionText {
-  public start: string = "";
-  public end: string = "";
-  public nameInsertionIndex: number = -1;
-}
-export class LanguageIdRegionLookup {
-  private static getCStyleRegions() {
-    var retval = new RegionText();
-    retval.start = "/* #region  */";
-    retval.end = "/* #endregion */";
-    retval.nameInsertionIndex = 3;
-    return retval;
-  }
-
-  private static getFishStyleRegions() {
-    var retval = new RegionText();
-    retval.start = "#region ";
-    retval.end = "#endregion";
-    retval.nameInsertionIndex = 0;
-    return retval;
-  }
-
-  private static getSwiftDartStyleRegions() {
-    var retval = new RegionText();
-    retval.start = "// #region ";
-    retval.end = "// #endregion";
-    retval.nameInsertionIndex = 0;
-    return retval;
-  }
-
-  private static getHtmlStyleRegions() {
-    var retval = new RegionText();
-    retval.start = "<!-- #region  -->";
-    retval.end = "<!-- #endregion -->";
-    retval.nameInsertionIndex = 4;
-    return retval;
-  }
-
-  private static getLuaStyleRegions() {
-    var retval = new RegionText();
-    retval.start = "--#region  ";
-    retval.end = "--#endregion";
-    retval.nameInsertionIndex = 1;
-    return retval;
-  }
-
-  private static getAutoHotKeyStyleRegions() {
-    var retval = new RegionText();
-    retval.start = "; #region  ";
-    retval.end = "; #endregion";
-    retval.nameInsertionIndex = 1;
-    return retval;
-  }
-  public getRegionText(languageId: string) {
-    //https://code.visualstudio.com/docs/languages/identifiers
-    console.log("Getting region styles for language: " + languageId);
-
-    switch (languageId) {
-      case "c":
-      case "cpp":
-      case "csharp":
-      case "css":
-      case "javascript":
-      case "json":
-      case "less":
-      case "sql":
-      case "typescript":
-        return LanguageIdRegionLookup.getCStyleRegions();
-      case "go":
-      case "swift":
-      case "dart":
-        return LanguageIdRegionLookup.getSwiftDartStyleRegions();
-      case "fish":
-        return LanguageIdRegionLookup.getFishStyleRegions();
-      case "lua":
-        return LanguageIdRegionLookup.getLuaStyleRegions();
-      case "html":
-      case "markdown":
-        return LanguageIdRegionLookup.getHtmlStyleRegions();
-      case "ahk":
-        return LanguageIdRegionLookup.getAutoHotKeyStyleRegions();
-      default:
-        return LanguageIdRegionLookup.getCStyleRegions();
-    }
-  }
-}
-
 // this method is called when your extension is deactivated
-export function deactivate() { }
+export function deactivate() {}
