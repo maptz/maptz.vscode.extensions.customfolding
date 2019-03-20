@@ -46,11 +46,15 @@ To provide a custom folding for your language create a settings in your vscode s
 
 ## Installing
 
+<!-- #region  -->
+
 You can install the latest version of the extension is available on the Visual Studio Marketplace [here](https://marketplace.visualstudio.com/items?itemName=maptz.regionfolder).
 
 Alternatively, open Visual Studio code, press `Ctrl+P` and type:
 
 > ext install regionfolder
+
+<!-- #endregion -->
 
 ## Bugs and Features
 
@@ -66,7 +70,7 @@ The source code is available on GitHub [here](https://github.com/maptz/Maptz.VSC
 
 ### Version 1.0.3
 
- - Small bug fixes and documentation updates.
+- Small bug fixes and documentation updates.
 
 ### Version 1.0.2
 
