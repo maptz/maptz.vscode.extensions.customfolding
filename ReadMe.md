@@ -32,7 +32,7 @@ The extension provides configuration settings, allowing you to provide custom re
 
 To provide a custom folding for your language create a settings in your vscode settings file that conforms to the following specification.
 
-    "maptz.regionfolding": {
+    "maptz.regionfolder": {
         "[ahk]": {                                      //Language selector
             foldEnd: "; #endregion",                    //Text inserted at the end of the fold
             foldEndRegex: ";[\\s]*#endregion",          //Regex used to find fold end text.
@@ -63,6 +63,10 @@ If you have a new language that you've supported using the custom configuration,
 The source code is available on GitHub [here](https://github.com/maptz/Maptz.VSCode.Extensions.CustomFolding).
 
 ## Release Notes
+
+### Version 1.0.3
+
+ - Small bug fixes and documentation updates.
 
 ### Version 1.0.2
 

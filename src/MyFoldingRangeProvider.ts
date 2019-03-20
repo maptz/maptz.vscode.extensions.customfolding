@@ -5,13 +5,21 @@ import * as vscode from "vscode";
 import * as config from "./IConfiguration";
 
 
-
 export class MyFoldingRangeProvider implements vscode.FoldingRangeProvider {
 
     private _configuration: config.IConfiguration;
+    public get configuration() { return this._configuration;}
+    public set configuration(value: config.IConfiguration){
+      if (this._configuration !== value){
+        this._configuration = value;
+      }
+    }
 
 constructor(config: config.IConfiguration) {
     this._configuration = config;    
+
+    //You may have to implement a default Folding range provider: 
+    //https://github.com/Microsoft/vscode/blob/master/src/vs/editor/contrib/folding/indentRangeProvider.ts
 }
 
   provideFoldingRanges(
@@ -20,6 +28,7 @@ constructor(config: config.IConfiguration) {
     token: vscode.CancellationToken
   ): vscode.FoldingRange[] {
     const languageId = document.languageId;
+    
     const currentLanguageConfig = this._configuration["[" + languageId + "]"];
     if ((typeof currentLanguageConfig === "undefined") || !currentLanguageConfig) {
         return [];
