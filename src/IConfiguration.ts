@@ -70,6 +70,12 @@ export let DefaultConfiguration :IConfiguration = {
     foldStart: "/* #region  [NAME] */",
     foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
   },
+  "[java]": {
+    foldEnd: "/* #endregion */",
+    foldEndRegex: "/\\*[\\s]*#endregion",
+    foldStart: "/* #region [NAME] */",
+    foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
+  },
   "[json]": {
     foldEnd: "/* #endregion */",
     foldEndRegex: "/\\*[\\s]*#endregion",

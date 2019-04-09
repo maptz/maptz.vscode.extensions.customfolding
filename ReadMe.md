@@ -68,6 +68,10 @@ The source code is available on GitHub [here](https://github.com/maptz/Maptz.VSC
 
 ## Release Notes
 
+### Version 1.0.5
+
+- Added support for `Java`.
+
 ### Version 1.0.4
 
 - Fixed issue that command didn't show up in the command palette. [Issue #17](https://github.com/maptz/maptz.vscode.extensions.customfolding/issues/17)
