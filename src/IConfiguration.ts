@@ -9,7 +9,7 @@ export interface IConfiguration {
   [languageName: string]: ILanguageConfiguration;
 }
 
-export let DefaultConfiguration :IConfiguration = {
+export let DefaultConfiguration: IConfiguration = {
   "[ahk]": {
     foldEnd: "; #endregion",
     foldEndRegex: ";[\\s]*#endregion",
@@ -105,6 +105,12 @@ export let DefaultConfiguration :IConfiguration = {
     foldEndRegex: "/\\*[\\s]*#endregion",
     foldStart: "/* #region  [NAME] */",
     foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
+  },
+  "[shellscript]": {
+    foldEnd: "#endregion",
+    foldEndRegex: "[\\s]*#endregion",
+    foldStart: "#region [NAME]",
+    foldStartRegex: "[\\s]*#region[\\s]*(.*)"
   },
   "[sql]": {
     foldEnd: "/* #endregion */",
