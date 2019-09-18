@@ -135,5 +135,11 @@ export let DefaultConfiguration :IConfiguration = {
     foldEndRegex: "\\<!--[\\s]*#endregion",
     foldStart: "<!-- #region [NAME] -->",
     foldStartRegex: "\\<!--[\\s]*#region[\\s]*(.*)"
+  },
+  "[yaml]": {
+    foldEnd: "#endregion",
+    foldEndRegex: "[\\s]*#endregion",
+    foldStart: "#region [NAME]",
+    foldStartRegex: "[\\s]*#region[\\s]*(.*)"
   }
 };
