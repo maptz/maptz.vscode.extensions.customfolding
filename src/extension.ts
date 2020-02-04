@@ -31,17 +31,17 @@ function loadConfiguration() {
   return config;
 }
 
-function loadOptionsConfiguration() {
-  let loadedConfig = vscode.workspace
-    .getConfiguration()
-    .get<IConfiguration.IOptionsConfiguration>("maptz.regionfolderOptions");
-  let config: IConfiguration.IOptionsConfiguration = Object.assign(
-    {},
-    IConfiguration.DefaultOptionsConfiguration
-  );
-  config = Object.assign(config, loadedConfig);
-  return config;
-}
+// function loadOptionsConfiguration() {
+//   let loadedConfig = vscode.workspace
+//     .getConfiguration()
+//     .get<IConfiguration.IOptionsConfiguration>("maptz.regionfolderOptions");
+//   let config: IConfiguration.IOptionsConfiguration = Object.assign(
+//     {},
+//     IConfiguration.DefaultOptionsConfiguration
+//   );
+//   config = Object.assign(config, loadedConfig);
+//   return config;
+// }
 
 //vscode.window.showInformationMessage("wrap");
 function getSupportedLanguages() {
@@ -195,13 +195,13 @@ export function activate(context: vscode.ExtensionContext) {
   disposables.push(disposable4);
 
 
-  let optionsConfig = loadOptionsConfiguration();
+  //let optionsConfig = loadOptionsConfiguration();
 
   /* #region  Subscribe to configuration changes */
   context.subscriptions.push(
     vscode.workspace.onDidChangeConfiguration(e => {
       foldingRangeProvider.configuration = loadConfiguration();
-      optionsConfig = loadOptionsConfiguration();
+      //optionsConfig = loadOptionsConfiguration();
     })
   );
 
