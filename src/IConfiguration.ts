@@ -106,6 +106,18 @@ export let DefaultConfiguration :IConfiguration = {
     foldStart: "/* #region  [NAME] */",
     foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
   },
+  "[python]": {
+    foldEnd: "# endregion",
+    foldEndRegex: "[\\s]*#[\\s]*endregion",
+    foldStart: "# region [NAME]",
+    foldStartRegex: "^[\\s]*#[\\s]*region[\\s]*(.*)[\\s]*$"
+  },
+  "[sass]": {
+    foldEnd: "/* #endregion */",
+    foldEndRegex: "/\\*[\\s]*#endregion",
+    foldStart: "/* #region  [NAME] */",
+    foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
+  },
   "[sql]": {
     foldEnd: "/* #endregion */",
     foldEndRegex: "/\\*[\\s]*#endregion",
@@ -135,5 +147,11 @@ export let DefaultConfiguration :IConfiguration = {
     foldEndRegex: "\\<!--[\\s]*#endregion",
     foldStart: "<!-- #region [NAME] -->",
     foldStartRegex: "\\<!--[\\s]*#region[\\s]*(.*)"
+  },
+  "[yaml]": {
+    foldEnd: "# endregion",
+    foldEndRegex: "[\\s]*#[\\s]*endregion",
+    foldStart: "# region [NAME]",
+    foldStartRegex: "^[\\s]*#[\\s]*region[\\s]*(.*)[\\s]*$"
   }
 };

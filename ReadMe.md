@@ -30,17 +30,17 @@ The extension also installs a command to wrap a `region` comment around the curr
 
 The extension provides configuration settings, allowing you to provide custom region tags for your language.
 
-To provide a custom folding for your language create a settings in your vscode settings file that conforms to the following specification.
+To provide a custom folding for your language create a settings in your vscode settings file (either user or workspace) that conforms to the following specification.
 
     "maptz.regionfolder": {
         "[ahk]": {                                      //Language selector
-            foldEnd: "; #endregion",                    //Text inserted at the end of the fold
-            foldEndRegex: ";[\\s]*#endregion",          //Regex used to find fold end text.
-            foldStart: "; #region [NAME]",              //Text inserted at the start of the fold.
+            "foldEnd": "; #endregion",                    //Text inserted at the end of the fold
+            "foldEndRegex": ";[\\s]*#endregion",          //Regex used to find fold end text.
+            "foldStart": "; #region [NAME]",              //Text inserted at the start of the fold.
                                                         //Use the `[NAME]` placeholder to indicate
                                                         //where the cursor should be placed after
                                                         //insertion
-            foldStartRegex: ";[\\s]*#region[\\s]*(.*)"  ////Regex used to find fold start text.
+            "foldStartRegex": ";[\\s]*#region[\\s]*(.*)"  ////Regex used to find fold start text.
       }
     }
 
