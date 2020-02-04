@@ -3,11 +3,20 @@ export interface ILanguageConfiguration {
   foldEndRegex: string;
   foldStart: string;
   foldStartRegex: string;
+  defaultFoldStartRegex?: string;
 }
 
 export interface IConfiguration {
   [languageName: string]: ILanguageConfiguration;
 }
+
+export interface IOptionsConfiguration{
+  collapseDefaultRegionsOnOpen: boolean;
+}
+
+export let DefaultOptionsConfiguration : IOptionsConfiguration = {
+  collapseDefaultRegionsOnOpen: true
+};
 
 export let DefaultConfiguration :IConfiguration = {
   "[ahk]": {
@@ -98,6 +107,7 @@ export let DefaultConfiguration :IConfiguration = {
     foldEnd: "<!-- #endregion -->",
     foldEndRegex: "\\<!--[\\s]*#endregion",
     foldStart: "<!-- #region [NAME] -->",
+    defaultFoldStartRegex: "\\<!--[\\s]*#region\\(collapsed\\)[\\s]*(.*)",
     foldStartRegex: "\\<!--[\\s]*#region[\\s]*(.*)"
   },
   "[php]": {

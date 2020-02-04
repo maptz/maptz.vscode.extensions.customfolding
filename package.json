@@ -2,7 +2,7 @@
     "name": "regionfolder",
     "displayName": "#region folding for VS Code",
     "description": "Provides folding for text wrapped with #region comments in VS Code.",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "homepage": "https://raw.githubusercontent.com/maptz/Maptz.VSCode.Extensions.customfolding/master/ReadMe.md",
     "repository": "https://github.com/maptz/Maptz.VSCode.Extensions.customfolding",
     "publisher": "maptz",
@@ -26,6 +26,10 @@
             {
                 "command": "regionfolder.wrapWithRegion",
                 "title": "Wraps the current selection with collapsible region comments."
+            },
+            {
+                "command":"regionfolder.collapseDefault",
+                "title": "Collapses default #regions."
             }
         ],
         "keybindings": [
@@ -33,23 +37,25 @@
                 "command": "regionfolder.wrapWithRegion",
                 "key": "ctrl+m ctrl+r",
                 "when": "editorTextFocus"
+            },
+            {
+                "command": "regionfolder.collapseDefault",
+                "key": "ctrl+shift+m ctrl+shift+r",
+                "when": "editorTextFocus"
             }
         ],
-        "configuration":{
+        "configuration": {
             "title": "Maptz region folding configuration",
             "type": "object",
             "properties": {
-                "maptz.regionfolder":{
-                    "type":"object",
-                    "description":"Settings used for custom folding.",
-                    "default": {
-                    }
+                "maptz.regionfolder": {
+                    "type": "object",
+                    "description": "Settings used for custom folding.",
+                    "default": {}
                 }
             }
         },
-        "configurationDefaults": {
-
-        }
+        "configurationDefaults": {}
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
@@ -59,7 +65,7 @@
         "test": "npm run compile && node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
-        "typescript": "^2.6.1",
+        "typescript": "^2.8.1",
         "vscode": "^1.1.6",
         "tslint": "^5.8.0",
         "@types/node": "^7.0.43",
