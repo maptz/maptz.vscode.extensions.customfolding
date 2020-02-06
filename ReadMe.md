@@ -82,7 +82,7 @@ You can create a default fold by creating a Regex expression for the language of
 
 ## Bugs and Features
 
-The Changelog can be found [here](ChangeLog.md).
+The Changelog can be found [here](CHANGELOG.md).
 
 Please log any bugs on Github [here](https://github.com/maptz/Maptz.VSCode.Extensions.CustomFolding/issues).
 
