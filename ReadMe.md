@@ -82,6 +82,8 @@ You can create a default fold by creating a Regex expression for the language of
 
 ## Bugs and Features
 
+The Changelog can be found [here](ChangeLog.md).
+
 Please log any bugs on Github [here](https://github.com/maptz/Maptz.VSCode.Extensions.CustomFolding/issues).
 
 If you have a new language that you've supported using the custom configuration, we'd love to incorporate it into the defaults for the extension. Please log an issue or a pull request on the repo [here](https://github.com/maptz/Maptz.VSCode.Extensions.CustomFolding/).
