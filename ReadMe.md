@@ -56,6 +56,30 @@ Alternatively, open Visual Studio code, press `Ctrl+P` and type:
 
 <!-- #endregion -->
 
+## Preliminary Features
+
+### Default Folding region
+
+New in version 1.0.7 is the notion of default folds. The feature is in preview, but when it is complete, default folds will define regions which will be collapsed whenever the file is opened. In the current version, default folds are only collapsed when the  `regionfolder.collapseDefault` command is issued from the command palette. 
+
+You can create a default fold by creating a Regex expression for the language of your choice in the `defaultFoldStartRegex` property in your settings file:
+
+```
+    "maptz.regionfolder": {
+        "[markdown]": {        
+            "defaultFoldStartRegex": "\\<!--[\\s]*#region\\(collapsed\\)[\\s]*(.*)",
+            
+            "foldEnd": "<!-- #endregion -->",
+            "foldEndRegex": "\\<!--[\\s]*#endregion",
+            "foldStart": "<!-- #region [NAME] -->",
+            "foldStartRegex": "\\<!--[\\s]*#region[\\s]*(.*)"
+        }
+    }
+```
+
+
+
+
 ## Bugs and Features
 
 Please log any bugs on Github [here](https://github.com/maptz/Maptz.VSCode.Extensions.CustomFolding/issues).
@@ -65,54 +89,6 @@ If you have a new language that you've supported using the custom configuration,
 ## Source Code
 
 The source code is available on GitHub [here](https://github.com/maptz/Maptz.VSCode.Extensions.CustomFolding).
-
-## Release Notes
-
-### Version 1.0.5
-
-- Added support for `Java`.
-
-### Version 1.0.4
-
-- Fixed issue that command didn't show up in the command palette. [Issue #17](https://github.com/maptz/maptz.vscode.extensions.customfolding/issues/17)
-
-### Version 1.0.3
-
-- Small bug fixes and documentation updates.
-
-### Version 1.0.2
-
-- Added ability to provide configuration for different languages.
-- Added support for `vue` [Issue #13](https://github.com/maptz/maptz.vscode.extensions.customfolding/pull/13)
-- Added support for `twig` [Issue #15](https://github.com/maptz/maptz.vscode.extensions.customfolding/pull/15)
-- Added support for `php` [Issue #16](https://github.com/maptz/maptz.vscode.extensions.customfolding/pull/16)
-
-### Version 1.0.1
-
-- Added support for `golang` [Issue #14](https://github.com/maptz/maptz.vscode.extensions.customfolding/pull/14)
-
-### Version 1.0.0
-
-- This is the official 1.0 release of the extension.
-
-### Version 0.0.11
-
-- Added support for .fish files. [Issue #9](https://github.com/maptz/maptz.vscode.extensions.customfolding/issues/9)
-
-### Version 0.0.10
-
-- Added support for .dart files. [Issue #8](https://github.com/maptz/maptz.vscode.extensions.customfolding/issues/8)
-- Added support for .swift files. [Issue #7](https://github.com/maptz/maptz.vscode.extensions.customfolding/issues/7)
-
-### Version 0.0.9
-
-- Updated NPM dependencies
-
-### Version 0.0.8
-
-- Added support for .ahk files. [Issue #1](https://github.com/maptz/maptz.vscode.extensions.customfolding/issues/1)
-- Added support for .lua files [Issue #3](https://github.com/maptz/maptz.vscode.extensions.customfolding/issues/3).
-- Added support for .sql files. [Issue #4](https://github.com/maptz/maptz.vscode.extensions.customfolding/issues/4)
 
 ## Other Extensions
 
