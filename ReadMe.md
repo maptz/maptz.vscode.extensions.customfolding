@@ -58,12 +58,20 @@ Alternatively, open Visual Studio code, press `Ctrl+P` and type:
 
 ## Preliminary Features
 
-### Default Folding region
+### Default Folding Region (Preview)
 
-New in version 1.0.7 is the notion of default folds. The feature is in preview, but when it is complete, default folds will define regions which will be collapsed whenever the file is opened. In the current version, default folds are only collapsed when the  `regionfolder.collapseDefault` command is issued from the command palette. 
+New in version 1.0.7 is the notion of default folds. The feature is in preview, but when it is complete, default folds will define regions which will be collapsed whenever the file is opened. In the current preview version, default folds are only collapsed when the  `regionfolder.collapseDefault` command is issued from the command palette. 
 
-You can create a default fold by creating a Regex expression for the language of your choice in the `defaultFoldStartRegex` property in your settings file:
+You can create a default fold by creating a Regex expression which defines the default fold for the language of your choice in your settings file. The Regex is defined in the `defaultFoldStartRegex` property.
 
+In the following example, defined for the Markdown language, default folds are defined as regions in the following form:
+
+```
+<!-- #region(collapsed) [NAME] -->
+Some default content here
+<!-- #endregion -->    
+```
+The settings for this default fold are below:
 ```
     "maptz.regionfolder": {
         "[markdown]": {        
