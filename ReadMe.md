@@ -13,7 +13,7 @@ The precise format of the comment depends on the language. For instance, for C-S
     }
     /* #endregion */
 
-For HTML style languages, you could define a fodable region with the following tags:
+For HTML style languages, you could define a foldable region with the following tags:
 
     <!-- #region Body -->
     <body>
