@@ -128,6 +128,12 @@ export let DefaultConfiguration :IConfiguration = {
     foldStart: "/* #region  [NAME] */",
     foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
   },
+  "[shellscript]": {
+    foldEnd: "#endregion",
+    foldEndRegex: "[\\s]*#endregion",
+    foldStart: "#region [NAME]",
+    foldStartRegex: "[\\s]*#region[\\s]*(.*)"
+  },
   "[sql]": {
     foldEnd: "/* #endregion */",
     foldEndRegex: "/\\*[\\s]*#endregion",

@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+### Version 1.0.8
+
+- Added support for `typescriptreact` [Issue #43](https://github.com/maptz/maptz.vscode.extensions.customfolding/pull/43).
+- Added support for `shellscript` [Issue #24](https://github.com/maptz/maptz.vscode.extensions.customfolding/pull/24).
+
 ### Version 1.0.7
 
 - Added preliminary support for default fold start using the `defaultFoldStartRegex` setting, and the `regionfolder.collapseDefault` command.
