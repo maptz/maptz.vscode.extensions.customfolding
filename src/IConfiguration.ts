@@ -122,6 +122,12 @@ export let DefaultConfiguration :IConfiguration = {
     foldStart: "# region [NAME]",
     foldStartRegex: "^[\\s]*#[\\s]*region[\\s]*(.*)[\\s]*$"
   },
+  "[rust]": {
+    foldEnd: "/* #endregion */",
+    foldEndRegex: "/\\*[\\s]*#endregion",
+    foldStart: "/* #region  [NAME] */",
+    foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
+  },
   "[sass]": {
     foldEnd: "/* #endregion */",
     foldEndRegex: "/\\*[\\s]*#endregion",

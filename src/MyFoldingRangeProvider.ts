@@ -5,6 +5,7 @@ import * as vscode from "vscode";
 import * as config from "./IConfiguration";
 
 
+
 export class MyFoldingRangeProvider implements vscode.FoldingRangeProvider {
 
     private _configuration: config.IConfiguration;
