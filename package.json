@@ -15,7 +15,7 @@
     "activationEvents": [
         "*"
     ],
-    "icon": "imgs/Icon.png",
+    "icon": "https://raw.githubusercontent.com/maptz/Maptz.VSCode.Extensions.customfolding/master/imgs/Icon.png",
     "main": "./out/extension",
     "contributes": {
         "commands": [
