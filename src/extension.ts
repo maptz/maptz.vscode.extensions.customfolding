@@ -194,9 +194,32 @@ export function activate(context: vscode.ExtensionContext) {
   });
   disposables.push(disposable4);
 
+  let disposable5 = vscode.commands.registerCommand('regionfolder.collapseAllRegions', () => {
+    vscode.window.showInformationMessage("collapse all regions");
+
+    let currentLanguageConfig = getConfigurationForCurrentLanguage();
+    if (currentLanguageConfig == null) return;
+    if (currentLanguageConfig.foldStartRegex == null) return;
+
+    var ate = vscode.window.activeTextEditor;
+    if (ate == null) return;
+
+
+    var arr = [];
+    for (let i = 0; i < ate.document.lineCount; i++) {
+      var line = ate.document.lineAt(i);
+
+      var start = new RegExp(currentLanguageConfig.foldStartRegex, "i");
+      if (start.exec(line.text.toString())) {
+        arr.push(i);
+      }
+    }
+    foldLines(arr);
+  });
+  disposables.push(disposable5);
+
 
   //let optionsConfig = loadOptionsConfiguration();
-
   /* #region  Subscribe to configuration changes */
   context.subscriptions.push(
     vscode.workspace.onDidChangeConfiguration(e => {
