@@ -87,6 +87,7 @@ constructor(config: config.IConfiguration) {
         );
       }
     }
+    console.log("Found " + completedRegions.length + " regions");
     return completedRegions;
   }
 }
