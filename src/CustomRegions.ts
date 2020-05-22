@@ -15,10 +15,11 @@ class RegionTag {
     public startCharacter?: number;
     public endCharacter?: number;
     public fullText?: string;
-    public lineNumber : number;
+    public lineNumber: number;
     public name?: string;
     constructor(type: RegionTagType) {
         this.regionTagType = type;
+        this.lineNumber = -1;
     }
 
     static Unknown() {
@@ -43,29 +44,33 @@ class CustomRegion {
     public startRegionTag: RegionTag;
     public endRegionTag: RegionTag;
 
-    public get lineStart() : number{
-        if (this.startRegionTag){
+    public contains(pos: vscode.Position) {
+        var ln = pos.line;
+        return ln >= this.lineStart && ln <= this.lineStart;
+    }
+    public get lineStart(): number {
+        if (this.startRegionTag) {
             return this.startRegionTag.lineNumber;
         }
         return -1;
     }
 
-    public get lineEnd() : number {
-        if (this.endRegionTag){
+    public get lineEnd(): number {
+        if (this.endRegionTag) {
             return this.endRegionTag.lineNumber;
         }
         return -1;
     }
-    
-    public get name() : string {
-        if (this.startRegionTag && this.startRegionTag.name){
+
+    public get name(): string {
+        if (this.startRegionTag && this.startRegionTag.name) {
             return this.startRegionTag.name;
         }
         return "";
     }
-    
 
-    constructor(startRegionTag:  RegionTag, endRegionTag: RegionTag = RegionTag.Unknown()) {
+
+    constructor(startRegionTag: RegionTag, endRegionTag: RegionTag = RegionTag.Unknown()) {
         this.startRegionTag = startRegionTag;
         this.endRegionTag = endRegionTag;
     }
@@ -125,7 +130,7 @@ export class RegionProvider {
                     }
                     var endTag = RegionTag.FromRegex(endMatch, RegionTagType.End, lineIndex);
                     var lastStartedRegion = startedRegions[startedRegions.length - 1];
-                    var finishedRegion = new CustomRegion(lastStartedRegion.startRegionTag,endTag);
+                    var finishedRegion = new CustomRegion(lastStartedRegion.startRegionTag, endTag);
                     completedRegions.push(finishedRegion);
                     startedRegions.pop();
                 }
@@ -153,3 +158,155 @@ export class RegionProvider {
 }
 
 /* #endregion */
+
+class RegionService {
+    regionProvider: RegionProvider;
+    document: vscode.TextDocument;
+    regions: CustomRegion[];
+
+    /**
+     *
+     */
+    constructor(config: config.IConfiguration, document: vscode.TextDocument) {
+        this.regionProvider = new RegionProvider(config);
+        this.document = document;
+        this.regions = [];
+    }
+    public update() {
+        var result = this.regionProvider.getRegions(this.document);
+        this.regions = result.completedRegions;
+    }
+
+    public currentRegions(): CustomRegion[] {
+        if (this.document !== vscode.window.activeTextEditor?.document) {
+            return [];
+        }
+        var surroundingRegions = [];
+        for (let reg of this.regions) {
+            if (reg.contains(vscode.window.activeTextEditor.selection.active)) {
+                surroundingRegions.push(reg);
+            }
+        }
+        return surroundingRegions;
+    }
+
+    public currentRegion(): CustomRegion | null {
+        var currentRegions = this.currentRegions();
+        if (currentRegions.length === 0) { return null; }
+
+        return currentRegions[currentRegions.length - 1];
+    }
+
+
+}
+
+class RegionWorkService {
+
+    config: config.IConfiguration;
+    document: vscode.TextDocument;
+    /**
+     *
+     */
+    constructor(config: config.IConfiguration, document: vscode.TextDocument) {
+        this.config = config;
+        this.document = document;
+    }
+
+    public commentCurrentRegion() {
+        var ate = vscode.window.activeTextEditor;
+        if (!ate) { return; }
+
+        var regionService = new RegionService(this.config, this.document);
+        var currentRegion = regionService.currentRegion();
+        if (currentRegion === null) { return; }
+
+        var startLine = this.document.lineAt(currentRegion.lineStart);
+        var endLine = this.document.lineAt(currentRegion.lineEnd);
+
+        var oldSelection = ate.selection;
+        var sel = new vscode.Selection(startLine.range.start, endLine.range.end);
+        ate.selection = sel;
+        
+        vscode.commands.executeCommand(
+            "editor.action.commentLine",
+            "editorHasDocumentFormattingProvider && editorTextFocus",
+            true
+          );
+
+          ate.selection = oldSelection;
+        
+
+    }
+
+    public removeCurrentRegionTags() {
+        var regionService = new RegionService(this.config, this.document);
+        var currentRegion = regionService.currentRegion();
+        if (currentRegion === null) { return; }
+
+        vscode.window.activeTextEditor?.edit(edit => {
+            if (currentRegion === null) { return; }
+            var startLine = this.document.lineAt(currentRegion.lineStart);
+            edit.delete(startLine.range);
+
+            var endLine = this.document.lineAt(currentRegion.lineEnd);
+            edit.delete(endLine.range);
+        });
+
+    }
+
+    public removeCurrentRegion() {
+        var regionService = new RegionService(this.config, this.document);
+        var currentRegion = regionService.currentRegion();
+        if (currentRegion === null) { return; }
+
+        vscode.window.activeTextEditor?.edit(edit => {
+            if (currentRegion === null) { return; }
+            var startLine = this.document.lineAt(currentRegion.lineStart);
+            var endLine = this.document.lineAt(currentRegion.lineEnd);
+
+            var range = new vscode.Range(startLine.range.start, endLine.range.end);
+            edit.delete(range);
+        });
+
+    }
+
+
+}
+
+class FileMonitor{
+    interval: NodeJS.Timer | null;
+    document: vscode.TextDocument;
+    languageId: string;
+    onLanguageIdChanged: ((oldLanguageId: string, newLanguageId: string)=>void) | null ;
+    
+
+constructor(document: vscode.TextDocument) {
+    this.document = document;
+    this.interval = null;
+    this.languageId = "";
+    this.onLanguageIdChanged = null;
+}
+
+    public onFileOpen(){
+        
+        if(this.interval) {
+			clearInterval(this.interval);
+			this.interval = null;
+		}
+
+		this.interval = setTimeout(()=>{
+            //TODO Check if we have a langauge service assigned
+            var languageId = this.document.languageId;
+            if (this.languageId !== languageId){
+                var oldLanguageId = this.languageId;
+                this.languageId = languageId;
+                this.raiseLanguageIdChanged(oldLanguageId, languageId);
+            }
+		},10);
+    }
+    private raiseLanguageIdChanged(oldLanguageId: string, newLanguageId: string) {
+        if (this.onLanguageIdChanged){
+            this.onLanguageIdChanged(oldLanguageId, newLanguageId);
+        }
+    }
+}

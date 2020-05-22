@@ -264,6 +264,22 @@ export function activate(context: vscode.ExtensionContext) {
     })
   );
 
+  //TODO: Do these 
+
+  
+  // vscode.workspace.onDidOpenTextDocument(
+	// 	AutoFoldTracker.OnFileOpen, //Needs to be a textdocument..
+	// 	null,
+	// 	context
+	// );
+
+	// vscode.workspace.onDidCloseTextDocument(
+	// 	AutoFoldTracker.OnFileClose,
+	// 	null,
+	// 	context
+	// );
+
+
   /* #endregion */
 
   /* #region  Subscript to text document opening. */
