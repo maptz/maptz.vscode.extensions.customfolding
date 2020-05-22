@@ -116,7 +116,6 @@ export class RegionProvider{
         );
       }
     }
-<<<<<<< HEAD
 
     
 
@@ -166,9 +165,5 @@ constructor(config: config.IConfiguration) {
 
     
     return crs;
-=======
-    console.log("Found " + completedRegions.length + " regions");
-    return completedRegions;
->>>>>>> 3f79b0d539fdb7c7f4e16c0dc51e4c7e5df8ad1a
   }
 }
