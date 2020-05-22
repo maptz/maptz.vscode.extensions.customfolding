@@ -30,7 +30,12 @@
             {
                 "command":"regionfolder.collapseDefault",
                 "title": "Collapses default #regions."
+            },
+            {
+                "command":"regionfolder.deleteRegion",
+                "title": "Deletes surrounding #region."
             }
+
         ],
         "keybindings": [
             {

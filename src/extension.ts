@@ -131,8 +131,8 @@ export function activate(context: vscode.ExtensionContext) {
 
       ate
         .edit(edit => {
-          if (currentLanguageConfig == null) return;
-          if (ate == null) return;
+          if (currentLanguageConfig == null) { return; }
+          if (ate == null) { return; }
           //Insert the #region, #endregion tags
           edit.insert(
             sel.end,
@@ -141,8 +141,8 @@ export function activate(context: vscode.ExtensionContext) {
           edit.insert(sel.start, regionStartText + eol + addPrefix);
         })
         .then(edit => {
-          if (currentLanguageConfig == null) return;
-          if (ate == null) return;
+          if (currentLanguageConfig === null) { return; }
+          if (ate === null) { return; }
 
           //Now, move the selection point to the [NAME] position.
           var sel = ate.selection;
@@ -203,6 +203,42 @@ export function activate(context: vscode.ExtensionContext) {
 
     var ate = vscode.window.activeTextEditor;
     if (ate == null) return;
+
+
+    var arr = [];
+    for (let i = 0; i < ate.document.lineCount; i++) {
+      var line = ate.document.lineAt(i);
+
+      var start = new RegExp(currentLanguageConfig.foldStartRegex, "i");
+      if (start.exec(line.text.toString())) {
+        arr.push(i);
+      }
+    }
+    foldLines(arr);
+  });
+  disposables.push(disposable5);
+
+
+  let disposable6 = vscode.commands.registerCommand('regionfolder.deleteRegions', () => {
+    vscode.window.showInformationMessage("Delete current region tags");
+
+    let currentLanguageConfig = getConfigurationForCurrentLanguage();
+    if (currentLanguageConfig == null) return;
+    if (currentLanguageConfig.foldStartRegex == null) return;
+
+    var ate = vscode.window.activeTextEditor;
+    if (ate == null) return;
+
+    let config = loadConfiguration();
+    var ro = new Maptz.RegionProvider(config);
+    var regions = ro.getRegions(ate.document);
+
+    throw "TODO";
+    regions.completedRegions.forEach(element => {
+      //ate?.selection.anchor.line
+      
+    });
+
 
 
     var arr = [];
