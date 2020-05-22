@@ -121,6 +121,12 @@ export let DefaultConfiguration :IConfiguration = {
     foldEndRegex: "[\\s]*#[\\s]*endregion",
     foldStart: "# region [NAME]",
     foldStartRegex: "^[\\s]*#[\\s]*region[\\s]*(.*)[\\s]*$"
+  }, 
+  "[ruby]": {                                      //Language selector
+    foldEnd: "#endregion",
+    foldEndRegex: "[\\s]*#endregion",
+    foldStart: "#region [NAME]",
+    foldStartRegex: "[\\s]*#region[\\s]*(.*)"
   },
   "[rust]": {
     foldEnd: "/* #endregion */",
