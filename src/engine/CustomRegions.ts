@@ -1,8 +1,7 @@
 /* #region  Imports */
 "use strict";
 import * as vscode from "vscode";
-import * as config from "./IConfiguration";
-import { start } from "repl";
+import * as config from "./../config/Configuration";
 /* #endregion */
 
 /* #region  RegionTagType */
@@ -79,29 +78,28 @@ class CustomRegion {
 
 /* #region  RegionProvider */
 export class RegionProvider {
-    private _configuration: config.IConfiguration;
-    public get configuration() { return this._configuration; }
-    public set configuration(value: config.IConfiguration) {
-        if (this._configuration !== value) {
-            this._configuration = value;
+    private _configurationService: config.ConfigurationService;
+    public get configuration() { return this._configurationService; }
+    public set configuration(value: config.ConfigurationService) {
+        if (this._configurationService !== value) {
+            this._configurationService = value;
         }
     }
 
-    constructor(config: config.IConfiguration) {
-        this._configuration = config;
-
+    constructor(configService: config.ConfigurationService) {
+        this._configurationService = configService;
     }
 
     public getRegions(document: vscode.TextDocument): { completedRegions: CustomRegion[], errors: string[] } {
         const languageId = document.languageId;
 
-        const currentLanguageConfig = this._configuration["[" + languageId + "]"];
-        if ((typeof currentLanguageConfig === "undefined") || !currentLanguageConfig) {
-            return {
-                completedRegions: [],
-                errors: []
-            };
+        const currentLanguageConfig = this._configurationService.getConfigurationForLanguage(languageId);
+        if (!currentLanguageConfig) { return {
+            completedRegions: [],
+            errors: []
+        };
         }
+        
         let regionTags = [currentLanguageConfig];
         var startedRegions: CustomRegion[] = [];
         var completedRegions: CustomRegion[] = [];
@@ -159,7 +157,7 @@ export class RegionProvider {
 
 /* #endregion */
 
-class RegionService {
+export class RegionService {
     regionProvider: RegionProvider;
     document: vscode.TextDocument;
     regions: CustomRegion[];
@@ -167,8 +165,8 @@ class RegionService {
     /**
      *
      */
-    constructor(config: config.IConfiguration, document: vscode.TextDocument) {
-        this.regionProvider = new RegionProvider(config);
+    constructor(configService: config.ConfigurationService, document: vscode.TextDocument) {
+        this.regionProvider = new RegionProvider(configService);
         this.document = document;
         this.regions = [];
     }
@@ -178,12 +176,14 @@ class RegionService {
     }
 
     public currentRegions(): CustomRegion[] {
-        if (this.document !== vscode.window.activeTextEditor?.document) {
+        var ate = vscode.window.activeTextEditor;
+        if (!ate) {return [];}
+        if (this.document !== ate.document) {
             return [];
         }
         var surroundingRegions = [];
         for (let reg of this.regions) {
-            if (reg.contains(vscode.window.activeTextEditor.selection.active)) {
+            if (reg.contains(ate.selection.active)) {
                 surroundingRegions.push(reg);
             }
         }
@@ -200,15 +200,15 @@ class RegionService {
 
 }
 
-class RegionWorkService {
+export class RegionWorkService {
 
-    config: config.IConfiguration;
+    configService: config.ConfigurationService;
     document: vscode.TextDocument;
     /**
      *
      */
-    constructor(config: config.IConfiguration, document: vscode.TextDocument) {
-        this.config = config;
+    constructor(configService: config.ConfigurationService, document: vscode.TextDocument) {
+        this.configService = configService;
         this.document = document;
     }
 
@@ -216,7 +216,7 @@ class RegionWorkService {
         var ate = vscode.window.activeTextEditor;
         if (!ate) { return; }
 
-        var regionService = new RegionService(this.config, this.document);
+        var regionService = new RegionService(this.configService, this.document);
         var currentRegion = regionService.currentRegion();
         if (currentRegion === null) { return; }
 
@@ -239,7 +239,7 @@ class RegionWorkService {
     }
 
     public removeCurrentRegionTags() {
-        var regionService = new RegionService(this.config, this.document);
+        var regionService = new RegionService(this.configService, this.document);
         var currentRegion = regionService.currentRegion();
         if (currentRegion === null) { return; }
 
@@ -250,12 +250,13 @@ class RegionWorkService {
 
             var endLine = this.document.lineAt(currentRegion.lineEnd);
             edit.delete(endLine.range);
+        // tslint:disable-next-line:no-unused-expression
         });
 
     }
 
     public removeCurrentRegion() {
-        var regionService = new RegionService(this.config, this.document);
+        var regionService = new RegionService(this.configService, this.document);
         var currentRegion = regionService.currentRegion();
         if (currentRegion === null) { return; }
 
@@ -266,6 +267,7 @@ class RegionWorkService {
 
             var range = new vscode.Range(startLine.range.start, endLine.range.end);
             edit.delete(range);
+        // tslint:disable-next-line:no-unused-expression
         });
 
     }
@@ -273,40 +275,3 @@ class RegionWorkService {
 
 }
 
-class FileMonitor{
-    interval: NodeJS.Timer | null;
-    document: vscode.TextDocument;
-    languageId: string;
-    onLanguageIdChanged: ((oldLanguageId: string, newLanguageId: string)=>void) | null ;
-    
-
-constructor(document: vscode.TextDocument) {
-    this.document = document;
-    this.interval = null;
-    this.languageId = "";
-    this.onLanguageIdChanged = null;
-}
-
-    public onFileOpen(){
-        
-        if(this.interval) {
-			clearInterval(this.interval);
-			this.interval = null;
-		}
-
-		this.interval = setTimeout(()=>{
-            //TODO Check if we have a langauge service assigned
-            var languageId = this.document.languageId;
-            if (this.languageId !== languageId){
-                var oldLanguageId = this.languageId;
-                this.languageId = languageId;
-                this.raiseLanguageIdChanged(oldLanguageId, languageId);
-            }
-		},10);
-    }
-    private raiseLanguageIdChanged(oldLanguageId: string, newLanguageId: string) {
-        if (this.onLanguageIdChanged){
-            this.onLanguageIdChanged(oldLanguageId, newLanguageId);
-        }
-    }
-}

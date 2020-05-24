@@ -1,0 +1,174 @@
+import *  as IConfig from "./IConfiguration";
+
+export let DefaultConfiguration : IConfig.IConfiguration = {
+    "[ahk]": {
+      foldEnd: "; #endregion",
+      foldEndRegex: ";[\\s]*#endregion",
+      foldStart: "; #region [NAME]",
+      foldStartRegex: ";[\\s]*#region[\\s]*(.*)"
+    },
+    "[c]": {
+      foldEnd: "// #endregion",
+      foldEndRegex: "//[\\s]*#endregion",
+      foldStart: "// #region [NAME]",
+      foldStartRegex: "^[\\s]*//[\\s]*#region[\\s]*(.*)[\\s]*$"
+    },
+    "[cpp]": {
+      foldEnd: "/* #endregion */",
+      foldEndRegex: "/\\*[\\s]*#endregion",
+      foldStart: "/* #region  [NAME] */",
+      foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
+    },
+    "[csharp]": {
+      foldEnd: "/* #endregion */",
+      foldEndRegex: "/\\*[\\s]*#endregion",
+      foldStart: "/* #region  [NAME] */",
+      foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
+    },
+    "[css]": {
+      foldEnd: "/* #endregion */",
+      foldEndRegex: "/\\*[\\s]*#endregion",
+      foldStart: "/* #region  [NAME] */",
+      foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
+    },
+    "[dart]": {
+      foldEnd: "// #endregion",
+      foldEndRegex: "//[\\s]*#endregion",
+      foldStart: "// #region [NAME]",
+      foldStartRegex: "//[\\s]*#region[\\s]*(.*)"
+    },
+    "[fish]": {
+      foldEnd: "#endregion",
+      foldEndRegex: "[\\s]*#endregion",
+      foldStart: "#region [NAME]",
+      foldStartRegex: "[\\s]*#region[\\s]*(.*)"
+    },
+    "[go]": {
+      foldEnd: "// #endregion",
+      foldEndRegex: "//[\\s]*#endregion",
+      foldStart: "// #region [NAME]",
+      foldStartRegex: "//[\\s]*#region[\\s]*(.*)"
+    },
+    "[html]": {
+      foldEnd: "<!-- #endregion -->",
+      foldEndRegex: "\\<!--[\\s]*#endregion",
+      foldStart: "<!-- #region [NAME] -->",
+      foldStartRegex: "\\<!--[\\s]*#region[\\s]*(.*)"
+    },
+    "[javascript]": {
+      foldEnd: "/* #endregion */",
+      foldEndRegex: "/\\*[\\s]*#endregion",
+      foldStart: "/* #region  [NAME] */",
+      foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
+    },
+    "[java]": {
+      foldEnd: "/* #endregion */",
+      foldEndRegex: "/\\*[\\s]*#endregion",
+      foldStart: "/* #region [NAME] */",
+      foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
+    },
+    "[json]": {
+      foldEnd: "/* #endregion */",
+      foldEndRegex: "/\\*[\\s]*#endregion",
+      foldStart: "/* #region  [NAME] */",
+      foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
+    },
+    "[lua]": {
+      foldEnd: "--#endregion",
+      foldEndRegex: "--[\\s]*#endregion",
+      foldStart: " --#region [NAME]",
+      foldStartRegex: "--[\\s]*#region[\\s]*(.*)"
+    },
+    "[less]": {
+      foldEnd: "/* #endregion */",
+      foldEndRegex: "/\\*[\\s]*#endregion",
+      foldStart: "/* #region  [NAME] */",
+      foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
+    },
+    "[markdown]": {
+      foldEnd: "<!-- #endregion -->",
+      foldEndRegex: "\\<!--[\\s]*#endregion",
+      foldStart: "<!-- #region [NAME] -->",
+      defaultFoldStartRegex: "\\<!--[\\s]*#region\\(collapsed\\)[\\s]*(.*)",
+      foldStartRegex: "\\<!--[\\s]*#region[\\s]*(.*)"
+    },
+    "[php]": {
+      foldEnd: "/* #endregion */",
+      foldEndRegex: "/\\*[\\s]*#endregion",
+      foldStart: "/* #region  [NAME] */",
+      foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
+    },
+    "[python]": {
+      foldEnd: "# endregion",
+      foldEndRegex: "[\\s]*#[\\s]*endregion",
+      foldStart: "# region [NAME]",
+      foldStartRegex: "^[\\s]*#[\\s]*region[\\s]*(.*)[\\s]*$"
+    }, 
+    "[ruby]": {                                      //Language selector
+      foldEnd: "#endregion",
+      foldEndRegex: "[\\s]*#endregion",
+      foldStart: "#region [NAME]",
+      foldStartRegex: "[\\s]*#region[\\s]*(.*)"
+    },
+    "[rust]": {
+      foldEnd: "/* #endregion */",
+      foldEndRegex: "/\\*[\\s]*#endregion",
+      foldStart: "/* #region  [NAME] */",
+      foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
+    },
+    "[sass]": {
+      foldEnd: "/* #endregion */",
+      foldEndRegex: "/\\*[\\s]*#endregion",
+      foldStart: "/* #region  [NAME] */",
+      foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
+    },
+    "[shellscript]": {
+      foldEnd: "#endregion",
+      foldEndRegex: "[\\s]*#endregion",
+      foldStart: "#region [NAME]",
+      foldStartRegex: "[\\s]*#region[\\s]*(.*)"
+    },
+    "[sql]": {
+      foldEnd: "/* #endregion */",
+      foldEndRegex: "/\\*[\\s]*#endregion",
+      foldStart: "/* #region  [NAME] */",
+      foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
+    },
+    "[swift]": {
+      foldEnd: "// #endregion",
+      foldEndRegex: "//[\\s]*#endregion",
+      foldStart: "// #region [NAME]",
+      foldStartRegex: "//[\\s]*#region[\\s]*(.*)"
+    },
+    "[typescript]": {
+      foldEnd: "/* #endregion */",
+      foldEndRegex: "/\\*[\\s]*#endregion",
+      foldStart: "/* #region  [NAME] */",
+      foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
+    },
+    '[typescriptreact]': {
+      foldEnd: "/* #endregion */",
+      foldEndRegex: "/\\*[\\s]*#endregion",
+      foldStart: "/* #region  [NAME] */",
+      foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
+    },
+    "[twig]": {
+      foldEnd: "<!-- #endregion -->",
+      foldEndRegex: "\\<!--[\\s]*#endregion",
+      foldStart: "<!-- #region [NAME] -->",
+      foldStartRegex: "\\<!--[\\s]*#region[\\s]*(.*)"
+    },
+    "[vue]": {
+      foldEnd: "<!-- #endregion -->",
+      foldEndRegex: "\\<!--[\\s]*#endregion",
+      foldStart: "<!-- #region [NAME] -->",
+      foldStartRegex: "\\<!--[\\s]*#region[\\s]*(.*)"
+    },
+    "[yaml]": {
+      foldEnd: "# endregion",
+      foldEndRegex: "[\\s]*#[\\s]*endregion",
+      foldStart: "# region [NAME]",
+      foldStartRegex: "^[\\s]*#[\\s]*region[\\s]*(.*)[\\s]*$"
+    }
+  };
+  

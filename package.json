@@ -7,7 +7,7 @@
     "repository": "https://github.com/maptz/Maptz.VSCode.Extensions.customfolding",
     "publisher": "maptz",
     "engines": {
-        "vscode": "^1.24.0"
+        "vscode": "^1.45.0"
     },
     "categories": [
         "Other"
@@ -21,21 +21,24 @@
         "commands": [
             {
                 "command": "regionfolder.collapseAllRegions",
-                "title": "Collapse all #regions"
+                "title": "Collapse all region tags."
+            },
+            {
+                "command": "regionfolder.collapseDefault",
+                "title": "Collapses default regions tags."
+            },
+            {
+                "command": "regionfolder.deleteRegion",
+                "title": "Deletes everything within current region tag."
+            },
+            {
+                "command": "regionfolder.wrapWithRegionAndComment",
+                "title": "Comment out and wrap with region tag."
             },
             {
                 "command": "regionfolder.wrapWithRegion",
-                "title": "Wraps the current selection with collapsible region comments."
-            },
-            {
-                "command":"regionfolder.collapseDefault",
-                "title": "Collapses default #regions."
-            },
-            {
-                "command":"regionfolder.deleteRegion",
-                "title": "Deletes surrounding #region."
+                "title": "Wrap selection with region tag."
             }
-
         ],
         "keybindings": [
             {
@@ -70,10 +73,10 @@
         "test": "npm run compile && node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
+        "@types/mocha": "^2.2.42",
+        "@types/node": "^7.10.11",
+        "tslint": "^5.20.1",
         "typescript": "^2.8.1",
-        "vscode": "^1.1.6",
-        "tslint": "^5.8.0",
-        "@types/node": "^7.0.43",
-        "@types/mocha": "^2.2.42"
+        "vscode": "^1.1.37"
     }
 }
