@@ -11,17 +11,17 @@ import * as r from "./CustomRegions";
 export class MyFoldingRangeProvider implements vscode.FoldingRangeProvider {
 
 
-  provideFoldingRanges(
-      document: vscode.TextDocument,
-      context: vscode.FoldingContext,
-      token: vscode.CancellationToken
-    ): vscode.FoldingRange[] {
-      //HERE IS TEH ERRRO
-      //const regionProvider = new r.RegionProvider(this.configurationService);
-     //var regions = regionProvider.getRegions(document);
+  // provideFoldingRanges(
+  //     document: vscode.TextDocument,
+  //     context: vscode.FoldingContext,
+  //     token: vscode.CancellationToken
+  //   ): vscode.FoldingRange[] {
+  //     //HERE IS TEH ERRRO
+  //     const regionProvider = new r.RegionProvider(this.configurationService);
+  //    //var regions = regionProvider.getRegions(document);
 
-      return [];
-  }
+  //     return [];
+  // }
   private _configurationService: config.ConfigurationService;
   public get configurationService() { return this._configurationService; }
   public set configurationService(value: config.ConfigurationService) {
@@ -37,26 +37,26 @@ export class MyFoldingRangeProvider implements vscode.FoldingRangeProvider {
     //https://github.com/Microsoft/vscode/blob/master/src/vs/editor/contrib/folding/indentRangeProvider.ts
   }
 
-  // provideFoldingRanges(
-  //   document: vscode.TextDocument,
-  //   context: vscode.FoldingContext,
-  //   token: vscode.CancellationToken
-  // ): vscode.FoldingRange[] {
-  //   const regionProvider = new r.RegionProvider(this.configurationService);
-  //   var regions = regionProvider.getRegions(document);
+  provideFoldingRanges(
+    document: vscode.TextDocument,
+    context: vscode.FoldingContext,
+    token: vscode.CancellationToken
+  ): vscode.FoldingRange[] {
+    const regionProvider = new r.RegionProvider(this.configurationService);
+    var regions = regionProvider.getRegions(document);
 
-  //   var crs: vscode.FoldingRange[] = [];
-  //   for (let region of regions.completedRegions) {
-  //     var foldingRange = new vscode.FoldingRange(
-  //       region.lineStart,
-  //       <number>region.lineEnd,
-  //       vscode.FoldingRangeKind.Region
-  //     );
-  //     crs.push(foldingRange);
-  //   }
+    var crs: vscode.FoldingRange[] = [];
+    for (let region of regions.completedRegions) {
+      var foldingRange = new vscode.FoldingRange(
+        region.lineStart,
+        <number>region.lineEnd,
+        vscode.FoldingRangeKind.Region
+      );
+      crs.push(foldingRange);
+    }
 
 
-  //   return crs;
-  // }
+    return crs;
+  }
 }
 /* #endregion */

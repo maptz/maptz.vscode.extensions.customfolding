@@ -4,6 +4,7 @@ export interface ILanguageConfiguration {
   foldStart: string;
   foldStartRegex: string;
   defaultFoldStartRegex?: string;
+  disableFolding?: boolean;
 }
 
 export interface IConfiguration {

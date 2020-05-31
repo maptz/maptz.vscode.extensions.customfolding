@@ -8,7 +8,7 @@ import * as defaultConfig from "./DefaultConfiguration";
 export class ConfigurationService {
 
 
-    public onConfigurationChanged : (()=>void) | null = null;
+    public onConfigurationChanged: (() => void) | null = null;
     /**
      *
      */
@@ -17,11 +17,11 @@ export class ConfigurationService {
             vscode.workspace.onDidChangeConfiguration(e => {
                 this.raiseConfigurationChanged();
             })
-          );
+        );
     }
 
-    protected raiseConfigurationChanged(){
-        if (this.onConfigurationChanged){
+    protected raiseConfigurationChanged() {
+        if (this.onConfigurationChanged) {
             this.onConfigurationChanged();
         }
         // foldingRangeProvider.configuration = loadConfiguration();
@@ -31,14 +31,16 @@ export class ConfigurationService {
         const supportedLanguages: string[] = [];
         const configuration = this.loadConfiguration();
         for (let prop in configuration) {
-          if (prop.startsWith("[") && prop.endsWith("]")) {
-            const languageName = prop.substr(1, prop.length - 2);
-            supportedLanguages.push(languageName);
-          }
+            if (prop.startsWith("[") && prop.endsWith("]")) {
+                const languageName = prop.substr(1, prop.length - 2);
+                if (!configuration[prop].disableFolding){
+                    supportedLanguages.push(languageName);
+                }
+            }
         }
         return supportedLanguages;
-      }
-      
+    }
+
 
     public loadConfiguration() {
         let loadedConfig = vscode.workspace
@@ -52,7 +54,7 @@ export class ConfigurationService {
         return config;
     }
 
-    public getConfigurationForLanguage(languageId: string) : config.ILanguageConfiguration | null {
+    public getConfigurationForLanguage(languageId: string): config.ILanguageConfiguration | null {
         let config = this.loadConfiguration();
         const currentLanguageConfig = config["[" + languageId + "]"];
         if ((typeof currentLanguageConfig === "undefined") || !currentLanguageConfig) {
@@ -61,13 +63,17 @@ export class ConfigurationService {
         return currentLanguageConfig;
     }
 
-    public getConfigurationForCurrentLanguage() {
+    public getConfigurationForCurrentLanguage(languageId: string) {
         let config = this.loadConfiguration();
         if (vscode.window.activeTextEditor === null) { return null; }
         /* #region Get the configuration for the current language */
-        var ate = vscode.window.activeTextEditor;
-        if (!ate) { return null; }
-        const languageId = ate.document.languageId;
+
+        if (!languageId) {
+            var ate = vscode.window.activeTextEditor;
+            if (!ate) { return null; }
+            languageId = ate.document.languageId;
+        }
+
         const currentLanguageConfig = config["[" + languageId + "]"];
         if (
             typeof currentLanguageConfig === "undefined" ||

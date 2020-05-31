@@ -41,6 +41,7 @@ To provide a custom folding for your language create a settings in your vscode s
                                                         //where the cursor should be placed after
                                                         //insertion
             "foldStartRegex": ";[\\s]*#region[\\s]*(.*)"  ////Regex used to find fold start text.
+            "disableFolding": false //Turn off #region folding for this language
       }
     }
 
@@ -56,11 +57,10 @@ Alternatively, open Visual Studio code, press `Ctrl+P` and type:
 
 <!-- #endregion -->
 
-## Preliminary Features
+## Features
+### Feature - Default Folding 
 
-### Default Folding Region (Preview)
-
-New in version 1.0.7 is the notion of default folds. The feature is in preview, but when it is complete, default folds will define regions which will be collapsed whenever the file is opened. In the current preview version, default folds are only collapsed when the  `regionfolder.collapseDefault` command is issued from the command palette. 
+A new feature is the notion of `default folds`. Default folds define regions which will be collapsed whenever the file is opened. In the current preview version, default folds are only collapsed when the  `regionfolder.collapseDefault` command is issued from the command palette. 
 
 You can create a default fold by creating a Regex expression which defines the default fold for the language of your choice in your settings file. The Regex is defined in the `defaultFoldStartRegex` property.
 
@@ -76,7 +76,7 @@ The settings for this default fold are below:
     "maptz.regionfolder": {
         "[markdown]": {        
             "defaultFoldStartRegex": "\\<!--[\\s]*#region\\(collapsed\\)[\\s]*(.*)",
-            
+
             "foldEnd": "<!-- #endregion -->",
             "foldEndRegex": "\\<!--[\\s]*#endregion",
             "foldStart": "<!-- #region [NAME] -->",
@@ -85,7 +85,47 @@ The settings for this default fold are below:
     }
 ```
 
+### Feature - Per-Language Disabling
 
+You can now turn off custom folding on a per-language basis. To do this, you need to add `disableFolding` to the settings for the particular language. You will need to restart VS Code for the changes to take effect. 
+
+So, for instance, to turn off folding for `cpp` add the following to your settings file:
+
+```
+    "maptz.regionfolder": {
+        "[cpp]": {        
+            "disableFolding": true
+        }
+    }
+```
+
+
+### Commands
+
+The commands that this extension provides are listed below:
+
+#### `regionfolder.collapseAllRegions` - *Collapse all #regions.*
+Collapses all #regions for the current document.
+
+#### `regionfolder.collapseDefault`- *Collapse default #regions.*
+Collapses all default #regions for the current document (i.e. those defined with a `defaultFoldStartRegex`).
+
+#### `regionfolder.deleteRegion` - *Delete current #region tags and contents*
+Deletes the current #region including all the #region tags, and all contents between the tags. 
+#### `regionfolder.removeCurrentRegionTags` - *Delete current #region tags*
+Deletes the current #region tags, leaving the contents between the tags intact. 
+
+#### `regionfolder.wrapWithRegion` - *Wrap selection with #region tag.*
+Wraps the currently selected text with #region tags. 
+
+#### `regionfolder.wrapWithRegionAndComment` - *Wrap with #region tag and comment.*
+Wraps the currently seected text with #region tags, and comments the selection out. 
+
+#### `regionfolder.selectCurrentRegion` - *Select current #region.*
+Selects the whole current #region, including the tags.
+
+#### `regionfolder.selectCurrentRegionContents`. - *Select current #region contents.*
+Selects the text within the current #region, not including the tags. 
 
 
 ## Bugs and Features

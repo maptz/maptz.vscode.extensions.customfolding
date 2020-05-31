@@ -2,7 +2,7 @@
     "name": "regionfolder",
     "displayName": "#region folding for VS Code",
     "description": "Provides folding for text wrapped with #region comments in VS Code.",
-    "version": "1.0.10",
+    "version": "1.0.11-preview1",
     "homepage": "https://raw.githubusercontent.com/maptz/Maptz.VSCode.Extensions.customfolding/master/ReadMe.md",
     "repository": "https://github.com/maptz/Maptz.VSCode.Extensions.customfolding",
     "publisher": "maptz",
@@ -21,23 +21,36 @@
         "commands": [
             {
                 "command": "regionfolder.collapseAllRegions",
-                "title": "Collapse all region tags."
+                "title": "Collapse all #regions."
             },
             {
                 "command": "regionfolder.collapseDefault",
-                "title": "Collapses default regions tags."
+                "title": "Collapse default #regions."
             },
             {
                 "command": "regionfolder.deleteRegion",
-                "title": "Deletes everything within current region tag."
+                "title": "Delete current #region tags and contents"
+            },
+            {
+                "command": "regionfolder.removeCurrentRegionTags",
+                "title": "Delete current #region tags"
+            },
+          
+            {
+                "command": "regionfolder.wrapWithRegion",
+                "title": "Wrap selection with #region tag."
             },
             {
                 "command": "regionfolder.wrapWithRegionAndComment",
-                "title": "Comment out and wrap with region tag."
+                "title": "Wrap with #region tag and comment."
             },
             {
-                "command": "regionfolder.wrapWithRegion",
-                "title": "Wrap selection with region tag."
+                "command": "regionfolder.selectCurrentRegion",
+                "title": "Select current #region."
+            },
+            {
+                "command": "regionfolder.selectCurrentRegionContents",
+                "title": "Select current #region contents."
             }
         ],
         "keybindings": [

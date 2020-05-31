@@ -17,11 +17,14 @@ export class RegionWrapperService {
     }
 
     public wrapCurrentWithRegion() {
-        let currentLanguageConfig = this._configService.getConfigurationForCurrentLanguage();
-        if (!currentLanguageConfig) { return; }
         var ate = vscode.window.activeTextEditor;
         if (!ate) { return; }
+        let document = ate.document;
+        if (!document) { return; }
 
+        let currentLanguageConfig = this._configService.getConfigurationForCurrentLanguage(document.languageId);
+        if (!currentLanguageConfig) { return; }
+        
         /* #region Check if there is anything selected. */
         if (ate.selections.length > 1 || ate.selections.length < 1) {
             return;

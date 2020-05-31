@@ -5,6 +5,16 @@ All notable changes to the extension will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+### Version 1.0.11-preview1
+
+- Added support for SCSS.
+- Added closing of default tags on file opening. 
+- Added new command: `regionfolder.deleteRegion`.
+- Added new command: `regionfolder.removeCurrentRegionTags`.
+- Added new command: `regionfolder.wrapWithRegionAndComment`.
+- Added new command: `regionfolder.selectCurrentRegion`.
+- Added new command: `regionfolder.selectCurrentRegionContents`.
+
 ### Version 1.0.9
 
 - Added support for `rust`.

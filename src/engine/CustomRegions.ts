@@ -5,11 +5,11 @@ import * as config from "./../config/Configuration";
 /* #endregion */
 
 /* #region  RegionTagType */
-enum RegionTagType { Unknown, Start, End }
+export enum RegionTagType { Unknown, Start, End }
 /* #endregion */
 
 /* #region  RegionTag */
-class RegionTag {
+export class RegionTag {
     public regionTagType: RegionTagType;
     public startCharacter?: number;
     public endCharacter?: number;
@@ -39,13 +39,13 @@ class RegionTag {
 /* #endregion */
 
 /* #region  CustomRegion */
-class CustomRegion {
+export class CustomRegion {
     public startRegionTag: RegionTag;
     public endRegionTag: RegionTag;
 
     public contains(pos: vscode.Position) {
         var ln = pos.line;
-        return ln >= this.lineStart && ln <= this.lineStart;
+        return ln >= this.lineStart && ln <= this.lineEnd;
     }
     public get lineStart(): number {
         if (this.startRegionTag) {
@@ -67,6 +67,8 @@ class CustomRegion {
         }
         return "";
     }
+
+    public isDefaultRegion : boolean = false;
 
 
     constructor(startRegionTag: RegionTag, endRegionTag: RegionTag = RegionTag.Unknown()) {
@@ -94,12 +96,13 @@ export class RegionProvider {
         const languageId = document.languageId;
 
         const currentLanguageConfig = this._configurationService.getConfigurationForLanguage(languageId);
-        if (!currentLanguageConfig) { return {
-            completedRegions: [],
-            errors: []
-        };
+        if (!currentLanguageConfig) {
+            return {
+                completedRegions: [],
+                errors: []
+            };
         }
-        
+
         let regionTags = [currentLanguageConfig];
         var startedRegions: CustomRegion[] = [];
         var completedRegions: CustomRegion[] = [];
@@ -118,6 +121,12 @@ export class RegionProvider {
                 if (startMatch) {
                     var startRegionTag = RegionTag.FromRegex(startMatch, RegionTagType.Start, lineIndex);
                     var customRegion = new CustomRegion(startRegionTag);
+                    if (regionTag.defaultFoldStartRegex){
+                        var defaultRE = new RegExp(regionTag.defaultFoldStartRegex, "i");
+                        if (defaultRE.exec(line)){
+                            customRegion.isDefaultRegion = true;
+                        }
+                    }
                     startedRegions.push(customRegion);
                 } else if (endMatch) {
                     if (startedRegions.length === 0) {
@@ -125,10 +134,11 @@ export class RegionProvider {
                             `Found an end region with no matching start tag at line ${lineIndex}`
                         );
                         continue;
-                    }
+                    }   
                     var endTag = RegionTag.FromRegex(endMatch, RegionTagType.End, lineIndex);
                     var lastStartedRegion = startedRegions[startedRegions.length - 1];
                     var finishedRegion = new CustomRegion(lastStartedRegion.startRegionTag, endTag);
+                    finishedRegion.isDefaultRegion = lastStartedRegion.isDefaultRegion;
                     completedRegions.push(finishedRegion);
                     startedRegions.pop();
                 }
@@ -156,122 +166,3 @@ export class RegionProvider {
 }
 
 /* #endregion */
-
-export class RegionService {
-    regionProvider: RegionProvider;
-    document: vscode.TextDocument;
-    regions: CustomRegion[];
-
-    /**
-     *
-     */
-    constructor(configService: config.ConfigurationService, document: vscode.TextDocument) {
-        this.regionProvider = new RegionProvider(configService);
-        this.document = document;
-        this.regions = [];
-    }
-    public update() {
-        var result = this.regionProvider.getRegions(this.document);
-        this.regions = result.completedRegions;
-    }
-
-    public currentRegions(): CustomRegion[] {
-        var ate = vscode.window.activeTextEditor;
-        if (!ate) {return [];}
-        if (this.document !== ate.document) {
-            return [];
-        }
-        var surroundingRegions = [];
-        for (let reg of this.regions) {
-            if (reg.contains(ate.selection.active)) {
-                surroundingRegions.push(reg);
-            }
-        }
-        return surroundingRegions;
-    }
-
-    public currentRegion(): CustomRegion | null {
-        var currentRegions = this.currentRegions();
-        if (currentRegions.length === 0) { return null; }
-
-        return currentRegions[currentRegions.length - 1];
-    }
-
-
-}
-
-export class RegionWorkService {
-
-    configService: config.ConfigurationService;
-    document: vscode.TextDocument;
-    /**
-     *
-     */
-    constructor(configService: config.ConfigurationService, document: vscode.TextDocument) {
-        this.configService = configService;
-        this.document = document;
-    }
-
-    public commentCurrentRegion() {
-        var ate = vscode.window.activeTextEditor;
-        if (!ate) { return; }
-
-        var regionService = new RegionService(this.configService, this.document);
-        var currentRegion = regionService.currentRegion();
-        if (currentRegion === null) { return; }
-
-        var startLine = this.document.lineAt(currentRegion.lineStart);
-        var endLine = this.document.lineAt(currentRegion.lineEnd);
-
-        var oldSelection = ate.selection;
-        var sel = new vscode.Selection(startLine.range.start, endLine.range.end);
-        ate.selection = sel;
-        
-        vscode.commands.executeCommand(
-            "editor.action.commentLine",
-            "editorHasDocumentFormattingProvider && editorTextFocus",
-            true
-          );
-
-          ate.selection = oldSelection;
-        
-
-    }
-
-    public removeCurrentRegionTags() {
-        var regionService = new RegionService(this.configService, this.document);
-        var currentRegion = regionService.currentRegion();
-        if (currentRegion === null) { return; }
-
-        vscode.window.activeTextEditor?.edit(edit => {
-            if (currentRegion === null) { return; }
-            var startLine = this.document.lineAt(currentRegion.lineStart);
-            edit.delete(startLine.range);
-
-            var endLine = this.document.lineAt(currentRegion.lineEnd);
-            edit.delete(endLine.range);
-        // tslint:disable-next-line:no-unused-expression
-        });
-
-    }
-
-    public removeCurrentRegion() {
-        var regionService = new RegionService(this.configService, this.document);
-        var currentRegion = regionService.currentRegion();
-        if (currentRegion === null) { return; }
-
-        vscode.window.activeTextEditor?.edit(edit => {
-            if (currentRegion === null) { return; }
-            var startLine = this.document.lineAt(currentRegion.lineStart);
-            var endLine = this.document.lineAt(currentRegion.lineEnd);
-
-            var range = new vscode.Range(startLine.range.start, endLine.range.end);
-            edit.delete(range);
-        // tslint:disable-next-line:no-unused-expression
-        });
-
-    }
-
-
-}
-

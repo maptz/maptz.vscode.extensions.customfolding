@@ -23,7 +23,8 @@ export let DefaultConfiguration : IConfig.IConfiguration = {
       foldEnd: "/* #endregion */",
       foldEndRegex: "/\\*[\\s]*#endregion",
       foldStart: "/* #region  [NAME] */",
-      foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
+      foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$",
+      defaultFoldStartRegex: "^[\\s]*/\\*[\\s]*#regiond[\\s]*(.*)[\\s]*\\*/[\\s]*$"
     },
     "[css]": {
       foldEnd: "/* #endregion */",
@@ -117,6 +118,12 @@ export let DefaultConfiguration : IConfig.IConfiguration = {
       foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
     },
     "[sass]": {
+      foldEnd: "/* #endregion */",
+      foldEndRegex: "/\\*[\\s]*#endregion",
+      foldStart: "/* #region  [NAME] */",
+      foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
+    },
+    "[scss]": {
       foldEnd: "/* #endregion */",
       foldEndRegex: "/\\*[\\s]*#endregion",
       foldStart: "/* #region  [NAME] */",
