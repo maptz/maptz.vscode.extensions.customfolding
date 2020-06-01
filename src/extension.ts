@@ -3,16 +3,14 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 import * as config from "./config/Configuration";
-import {Engine } from "./engine/Engine";
-
-
-console.log("Extension loaded");
+import { Engine } from "./engine/Engine";
 
 export function activate(context: vscode.ExtensionContext) {
-  
-   const configService = new config.ConfigurationService(context);
-   const eng = new Engine(configService);
-  
+
+  /* #region  Initial Activation */
+  const configService = new config.ConfigurationService(context);
+  const eng = new Engine(configService);
+
   const commands = [];
   commands.push({
     name: "regionfolder.wrapWithRegion",
@@ -47,16 +45,14 @@ export function activate(context: vscode.ExtensionContext) {
     action: () => eng.selectCurrentRegionContents()
   });
 
-  
-  for(let comm of commands){
+
+  for (let comm of commands) {
     let disp = vscode.commands.registerCommand(comm.name, comm.action);
     context.subscriptions.push(disp);
   }
+  /* #endregion */
 
- 
 }
-
-
 
 // this method is called when your extension is deactivated
 export function deactivate() { }

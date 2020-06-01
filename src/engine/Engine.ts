@@ -37,13 +37,10 @@ export class Engine {
 
         var srt = currentRegion.startRegionTag;
         var start1 = new vscode.Position(srt.lineNumber, <number>srt.startCharacter);
-        var startLine = ate.document.lineAt(srt.lineNumber);
-        var end1 = new vscode.Position(srt.lineNumber, startLine.text.length);
 
         var ert = currentRegion.endRegionTag;
         var endLine = ate.document.lineAt(ert.lineNumber);
         if (!endLine) { return; }
-        var start2 = new vscode.Position(ert.lineNumber, <number>ert.startCharacter);
         var end2 = new vscode.Position(ert.lineNumber, endLine.text.length);
 
         ate.selection = new vscode.Selection(start1, end2);
@@ -100,7 +97,7 @@ export class Engine {
             if (!endLine) { return; }
 
 
-            var start2 = new vscode.Position(ert.lineNumber, <number>ert.startCharacter)
+            var start2 = new vscode.Position(ert.lineNumber, <number>ert.startCharacter);
             var end2 = new vscode.Position(ert.lineNumber, endLine.text.length);
             range = new vscode.Range(start2, end2);
             edit.delete(range);
