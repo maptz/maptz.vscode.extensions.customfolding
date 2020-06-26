@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
       "foldDefinitions": [
         {
           "foldEndRegex": "\\*+/[\\s]*$",
-          "foldStartRegex": "^[\\s]*/\\*+" ,
+          "foldStartRegex": "^[\\s]*/\\*\\*+" ,
           "isFoldedByDefault": true
         }
       ]

@@ -58,7 +58,7 @@ Alternatively, open Visual Studio code, press `Ctrl+P` and type:
 <!-- #endregion -->
 
 ## Features
-### Feature - Default Folding 
+### Feature - Default Folding (Preview)
 
 A new feature is the notion of `default folds`. Default folds define regions which will be collapsed whenever the file is opened. In the current preview version, default folds are only collapsed when the  `regionfolder.collapseDefault` command is issued from the command palette. 
 
@@ -71,7 +71,7 @@ In the following example, defined for the Markdown language, default folds are d
 Some default content here
 <!-- #endregion -->    
 ```
-The settings for this default fold are below:
+The settings for this default fold are below. You can either put thins in your Workspace settings file (`.vscode/settings.json`) or in your user profile settings file:
 ```
     "maptz.regionfolder": {
         "[markdown]": {        
@@ -85,7 +85,7 @@ The settings for this default fold are below:
     }
 ```
 
-### Feature - Per-Language Disabling
+### Feature - Per-Language Disabling  (Preview)
 
 You can now turn off custom folding on a per-language basis. To do this, you need to add `disableFolding` to the settings for the particular language. You will need to restart VS Code for the changes to take effect. 
 
@@ -98,6 +98,43 @@ So, for instance, to turn off folding for `cpp` add the following to your settin
         }
     }
 ```
+
+### Feature - Multiple Fold Definitions Per Language (Preview)
+
+The extension now has preview support for defining multiple fold definitions per language. Secondary folds can be defined in the `foldDefinitions` property in the settings for each language. By settting the `isFoldedByDefault` value to `true`, you can ensure that the folds are collapsed by default when the file opens. 
+
+The example below is used to collapse Copyright style headers by default in Javascript files:
+
+```
+/***************************************************
+ * Copyright (c) 2020 Maptz.
+ * All rights reserved.
+ ***************************************************/
+```
+
+The `.vscode/settings.json` file used to define this behaviour is:
+
+```
+{
+  "maptz.regionfolder": {
+    "[javascript]": {
+      "foldEnd": "/* #endregion */",
+      "foldEndRegex": "/\\*[\\s]*#endregion",
+      "foldStart": "/* #region [NAME] */",
+      "foldStartRegex": "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$",
+      "defaultFoldStartRegex": "^[\\s]*/\\*[\\s]*#region[\\s]*default\\s(.*)[\\s]*\\*/[\\s]*$",
+      "foldDefinitions": [
+        {
+          "foldEndRegex": "\\*+/[\\s]*$",
+          "foldStartRegex": "^[\\s]*/\\*\\*+" ,
+          "isFoldedByDefault": true
+        }
+      ]
+    }
+  }
+}
+```
+
 
 
 ### Commands
