@@ -1,10 +1,11 @@
+/* #region  Imports */
 "use strict";
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 import * as config from "./IConfiguration";
 import * as defaultConfig from "./DefaultConfiguration";
+/* #endregion */
 
+/* #region  ConfigurationService */
 export class ConfigurationService {
 
 
@@ -33,7 +34,7 @@ export class ConfigurationService {
         for (let prop in configuration) {
             if (prop.startsWith("[") && prop.endsWith("]")) {
                 const languageName = prop.substr(1, prop.length - 2);
-                if (!configuration[prop].disableFolding){
+                if (!configuration[prop].disableFolding) {
                     supportedLanguages.push(languageName);
                 }
             }
@@ -90,6 +91,7 @@ export class ConfigurationService {
         return currentLanguageConfig;
     }
 }
+/* #endregion */
 
 
 

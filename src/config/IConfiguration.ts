@@ -1,10 +1,18 @@
-export interface ILanguageConfiguration {
+export interface ILanguageConfiguration extends IFoldConfiguration {
+  defaultFoldStartRegex?: string;
+  disableFolding?: boolean;
+
+  //Latest version
+  foldDefinitions?: IFoldConfiguration[];
+}
+
+
+export interface IFoldConfiguration{
   foldEnd: string;
   foldEndRegex: string;
   foldStart: string;
   foldStartRegex: string;
-  defaultFoldStartRegex?: string;
-  disableFolding?: boolean;
+  isFoldedByDefault?: boolean;
 }
 
 export interface IConfiguration {

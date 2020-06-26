@@ -1,6 +1,7 @@
 /* #region  Imports */
 "use strict";
 import * as vscode from "vscode";
+
 import * as config from "./../config/Configuration";
 import {RegionProvider, CustomRegion} from "./CustomRegions";
 /* #endregion */
@@ -56,80 +57,5 @@ export class RegionService {
 
 
 }
-/* #endregion */
-
-/* #region  RegionWorkService */
-// export class RegionWorkService {
-
-//     configService: config.ConfigurationService;
-//     document: vscode.TextDocument;
-//     /**
-//      *
-//      */
-//     constructor(configService: config.ConfigurationService, document: vscode.TextDocument) {
-//         this.configService = configService;
-//         this.document = document;
-//     }
-
-//     public commentCurrentRegion() {
-//         var ate = vscode.window.activeTextEditor;
-//         if (!ate) { return; }
-
-//         var regionService = new RegionService(this.configService, this.document);
-//         var currentRegion = regionService.currentRegion();
-//         if (currentRegion === null) { return; }
-
-//         var startLine = this.document.lineAt(currentRegion.lineStart);
-//         var endLine = this.document.lineAt(currentRegion.lineEnd);
-
-//         var oldSelection = ate.selection;
-//         var sel = new vscode.Selection(startLine.range.start, endLine.range.end);
-//         ate.selection = sel;
-
-//         vscode.commands.executeCommand(
-//             "editor.action.commentLine",
-//             "editorHasDocumentFormattingProvider && editorTextFocus",
-//             true
-//         );
-
-//         ate.selection = oldSelection;
-
-
-//     }
-
-//     public removeCurrentRegionTags() {
-//         var regionService = new RegionService(this.configService, this.document);
-//         var currentRegion = regionService.currentRegion();
-//         if (currentRegion === null) { return; }
-
-//         vscode.window.activeTextEditor?.edit(edit => {
-//             if (currentRegion === null) { return; }
-//             var startLine = this.document.lineAt(currentRegion.lineStart);
-//             edit.delete(startLine.range);
-
-//             var endLine = this.document.lineAt(currentRegion.lineEnd);
-//             edit.delete(endLine.range);
-//             // tslint:disable-next-line:no-unused-expression
-//         });
-
-//     }
-
-//     public removeCurrentRegion() {
-//         var regionService = new RegionService(this.configService, this.document);
-//         var currentRegion = regionService.currentRegion();
-//         if (currentRegion === null) { return; }
-
-//         vscode.window.activeTextEditor?.edit(edit => {
-//             if (currentRegion === null) { return; }
-//             var startLine = this.document.lineAt(currentRegion.lineStart);
-//             var endLine = this.document.lineAt(currentRegion.lineEnd);
-
-//             var range = new vscode.Range(startLine.range.start, endLine.range.end);
-//             edit.delete(range);
-//             // tslint:disable-next-line:no-unused-expression
-//         });
-
-//     }
-// }
 /* #endregion */
 

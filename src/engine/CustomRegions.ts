@@ -2,6 +2,7 @@
 "use strict";
 import * as vscode from "vscode";
 import * as config from "./../config/Configuration";
+import { ILanguageConfiguration, IFoldConfiguration } from "./../config/IConfiguration";
 /* #endregion */
 
 /* #region  RegionTagType */
@@ -68,7 +69,7 @@ export class CustomRegion {
         return "";
     }
 
-    public isDefaultRegion : boolean = false;
+    public isDefaultRegion: boolean = false;
 
 
     constructor(startRegionTag: RegionTag, endRegionTag: RegionTag = RegionTag.Unknown()) {
@@ -103,29 +104,43 @@ export class RegionProvider {
             };
         }
 
-        let regionTags = [currentLanguageConfig];
-        var startedRegions: CustomRegion[] = [];
+        let foldDefinitions = <IFoldConfiguration[]>[currentLanguageConfig];
+        if (currentLanguageConfig.foldDefinitions) {
+            for (let foldDefinition of currentLanguageConfig.foldDefinitions) {
+                foldDefinitions.push(foldDefinition);
+            }
+        }
+
+
         var completedRegions: CustomRegion[] = [];
         var text = document.getText();
         var lines = text.split("\n");
 
         var errors = [];
-        for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
-            var line = lines[lineIndex];
-            for (let regionTag of regionTags) {
-                var start = new RegExp(regionTag.foldStartRegex, "i"); //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
-                var end = new RegExp(regionTag.foldEndRegex, "i");
+        for (let foldDefinition of foldDefinitions) {
+
+            var startedRegions: CustomRegion[] = [];
+            var start = new RegExp(foldDefinition.foldStartRegex, "i"); //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
+            var end = new RegExp(foldDefinition.foldEndRegex, "i");
+
+            for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
+                var line = lines[lineIndex];
 
                 var startMatch = start.exec(line);
                 var endMatch = end.exec(line);
                 if (startMatch) {
                     var startRegionTag = RegionTag.FromRegex(startMatch, RegionTagType.Start, lineIndex);
                     var customRegion = new CustomRegion(startRegionTag);
-                    if (regionTag.defaultFoldStartRegex){
-                        var defaultRE = new RegExp(regionTag.defaultFoldStartRegex, "i");
-                        if (defaultRE.exec(line)){
+
+                    if ((<ILanguageConfiguration>foldDefinition).defaultFoldStartRegex) {
+                        var regexPatt = <string>(<ILanguageConfiguration>foldDefinition).defaultFoldStartRegex;
+                        var defaultRE = new RegExp(regexPatt, "i");
+                        if (defaultRE.exec(line)) {
                             customRegion.isDefaultRegion = true;
                         }
+                    }
+                    else if (foldDefinition.isFoldedByDefault) {
+                        customRegion.isDefaultRegion = true;
                     }
                     startedRegions.push(customRegion);
                 } else if (endMatch) {
@@ -134,7 +149,7 @@ export class RegionProvider {
                             `Found an end region with no matching start tag at line ${lineIndex}`
                         );
                         continue;
-                    }   
+                    }
                     var endTag = RegionTag.FromRegex(endMatch, RegionTagType.End, lineIndex);
                     var lastStartedRegion = startedRegions[startedRegions.length - 1];
                     var finishedRegion = new CustomRegion(lastStartedRegion.startRegionTag, endTag);
@@ -142,18 +157,23 @@ export class RegionProvider {
                     completedRegions.push(finishedRegion);
                     startedRegions.pop();
                 }
+
+
+            }
+
+
+            if (startedRegions.length > 0) {
+                for (let err of startedRegions) {
+                    errors.push(
+                        `Found a started region with no matching end tag at line ${
+                        err.lineStart
+                        }`
+                    );
+                }
             }
         }
 
-        if (startedRegions.length > 0) {
-            for (let err of startedRegions) {
-                errors.push(
-                    `Found a started region with no matching end tag at line ${
-                    err.lineStart
-                    }`
-                );
-            }
-        }
+
 
 
 
