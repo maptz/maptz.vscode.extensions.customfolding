@@ -68,6 +68,12 @@ export let DefaultConfiguration: IConfig.IConfiguration = {
     foldStart: "/* #region  [NAME] */",
     foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
   },
+  "[javascriptreact]": {
+    foldEnd: "/* #endregion */",
+    foldEndRegex: "/\\*[\\s]*#endregion",
+    foldStart: "/* #region  [NAME] */",
+    foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
+  },
   "[java]": {
     foldEnd: "/* #endregion */",
     foldEndRegex: "/\\*[\\s]*#endregion",
