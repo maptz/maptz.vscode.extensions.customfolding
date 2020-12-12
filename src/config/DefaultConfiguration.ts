@@ -105,6 +105,12 @@ export let DefaultConfiguration: IConfig.IConfiguration = {
     defaultFoldStartRegex: "\\<!--[\\s]*#region\\(collapsed\\)[\\s]*(.*)",
     foldStartRegex: "\\<!--[\\s]*#region[\\s]*(.*)"
   },
+  "[oraclesql]": {                                          
+    foldEnd: "/* #endregion */",                         
+    foldEndRegex: "/* [\\s]*#endregion [\\s]*(.*)*/",    
+    foldStart: "/* #region [NAME] */",                   
+    foldStartRegex: "/* [\\s]*#region[\\s]*(.*)*/",      
+  },
   "[php]": {
     foldEnd: "/* #endregion */",
     foldEndRegex: "/\\*[\\s]*#endregion",
