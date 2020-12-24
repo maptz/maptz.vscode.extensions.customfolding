@@ -13,6 +13,12 @@ export let DefaultConfiguration: IConfig.IConfiguration = {
     foldStart: "; #region [NAME]",
     foldStartRegex: ";[\\s]*#region[\\s]*(.*)"
   },
+  "[aspnetcorerazor]":{
+    foldEnd: "@* //#endregion *@",
+    foldEndRegex: "@\\*[\\s]*//[\\s]*#endregion",
+    foldStart: "@* //#region [NAME]*@",
+    foldStartRegex: "@\\*[\\s]*//[\\s]*#region[\\s]*(.*)"
+  },
   "[c]": {
     foldEnd: "// #endregion",
     foldEndRegex: "//[\\s]*#endregion",
