@@ -40,7 +40,7 @@ To provide a custom folding for your language create a settings in your vscode s
                                                         //Use the `[NAME]` placeholder to indicate
                                                         //where the cursor should be placed after
                                                         //insertion
-            "foldStartRegex": ";[\\s]*#region[\\s]*(.*)"  ////Regex used to find fold start text.
+            "foldStartRegex": ";[\\s]*#region[\\s]*(.*)",  ////Regex used to find fold start text.
             "disableFolding": false //Turn off #region folding for this language
       }
     }
