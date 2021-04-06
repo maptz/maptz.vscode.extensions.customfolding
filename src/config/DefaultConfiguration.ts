@@ -123,6 +123,12 @@ export let DefaultConfiguration: IConfig.IConfiguration = {
     foldStart: "/* #region  [NAME] */",
     foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
   },
+  "[powershell]": {
+    foldEnd: "# endregion",
+    foldEndRegex: "[\\s]*#[\\s]*endregion",
+    foldStart: "# region [NAME]",
+    foldStartRegex: "^[\\s]*#[\\s]*region[\\s]*(.*)[\\s]*$"
+  },
   "[python]": {
     foldEnd: "# endregion",
     foldEndRegex: "[\\s]*#[\\s]*endregion",

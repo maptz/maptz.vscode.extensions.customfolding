@@ -12,6 +12,8 @@ echo publishing with accesscode %AccessCode%
 vsce publish -p %AccessCode%
 cd /D %location%
 
+REM Full PAT instructoins here: https://code.visualstudio.com/api/working-with-extensions/publishing-extension
 REM Personal access token is at https://dev.azure.com/. 
 REM See here for instructions https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=preview-page
 REM See https://dev.azure.com/maptz/_usersSettings/tokens
+
