@@ -44,6 +44,12 @@ export let DefaultConfiguration: IConfig.IConfiguration = {
     foldStart: "/* #region  [NAME] */",
     foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
   },
+  "[cmake]": {
+    foldEnd: "# endregion",
+    foldEndRegex: "[\\s]*#[\\s]*endregion",
+    foldStart: "# region [NAME]",
+    foldStartRegex: "^[\\s]*#[\\s]*region[\\s]*(.*)[\\s]*$"
+  },
   "[dart]": {
     foldEnd: "// #endregion",
     foldEndRegex: "//[\\s]*#endregion",
@@ -111,11 +117,11 @@ export let DefaultConfiguration: IConfig.IConfiguration = {
     defaultFoldStartRegex: "\\<!--[\\s]*#region\\(collapsed\\)[\\s]*(.*)",
     foldStartRegex: "\\<!--[\\s]*#region[\\s]*(.*)"
   },
-  "[oraclesql]": {                                          
-    foldEnd: "/* #endregion */",                         
-    foldEndRegex: "/* [\\s]*#endregion [\\s]*(.*)*/",    
-    foldStart: "/* #region [NAME] */",                   
-    foldStartRegex: "/* [\\s]*#region[\\s]*(.*)*/",      
+  "[oraclesql]": {
+    foldEnd: "/* #endregion */",
+    foldEndRegex: "/* [\\s]*#endregion [\\s]*(.*)*/",
+    foldStart: "/* #region [NAME] */",
+    foldStartRegex: "/* [\\s]*#region[\\s]*(.*)*/",
   },
   "[php]": {
     foldEnd: "/* #endregion */",
