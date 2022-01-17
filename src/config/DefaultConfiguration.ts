@@ -218,5 +218,11 @@ export let DefaultConfiguration: IConfig.IConfiguration = {
     foldEndRegex: "[\\s]*#[\\s]*endregion",
     foldStart: "# region [NAME]",
     foldStartRegex: "^[\\s]*#[\\s]*region[\\s]*(.*)[\\s]*$"
+  },
+  "[yuml]": {
+    foldEnd: "// #endregion",
+    foldEndRegex: "//[\\s]*#endregion",
+    foldStart: "// #region [NAME]",
+    foldStartRegex: "^[\\s]*//[\\s]*#region[\\s]*(.*)[\\s]*$"
   }
 };
