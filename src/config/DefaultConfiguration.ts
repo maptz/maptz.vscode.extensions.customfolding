@@ -98,6 +98,12 @@ export let DefaultConfiguration: IConfig.IConfiguration = {
     foldStart: "/* #region  [NAME] */",
     foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
   },
+  "[jsonc]": {
+    foldEnd: "/* #endregion */",
+    foldEndRegex: "/\\*[\\s]*#endregion",
+    foldStart: "/* #region  [NAME] */",
+    foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
+  },
   "[lua]": {
     foldEnd: "--#endregion",
     foldEndRegex: "--[\\s]*#endregion",
