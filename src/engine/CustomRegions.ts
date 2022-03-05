@@ -95,6 +95,7 @@ export class RegionProvider {
 
     public getRegions(document: vscode.TextDocument): { completedRegions: CustomRegion[], errors: string[] } {
         const languageId = document.languageId;
+        console.log(`Getting regions for language ${languageId}.`);
 
         const currentLanguageConfig = this._configurationService.getConfigurationForLanguage(languageId);
         if (!currentLanguageConfig) {
@@ -165,8 +166,7 @@ export class RegionProvider {
             if (startedRegions.length > 0) {
                 for (let err of startedRegions) {
                     errors.push(
-                        `Found a started region with no matching end tag at line ${
-                        err.lineStart
+                        `Found a started region with no matching end tag at line ${err.lineStart
                         }`
                     );
                 }

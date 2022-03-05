@@ -71,7 +71,7 @@ In the following example, defined for the Markdown language, default folds are d
 Some default content here
 <!-- #endregion -->    
 ```
-The settings for this default fold are below. You can either put thins in your Workspace settings file (`.vscode/settings.json`) or in your user profile settings file:
+The settings for this default fold are below. You can either put this in your Workspace settings file (`.vscode/settings.json`) or in your user profile settings file:
 ```
     "maptz.regionfolder": {
         "[markdown]": {        

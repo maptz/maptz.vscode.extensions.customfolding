@@ -44,15 +44,21 @@ export class ConfigurationService {
 
 
     public loadConfiguration() {
-        let loadedConfig = vscode.workspace
+        let loadedConfig = <config.IConfiguration>vscode.workspace
             .getConfiguration()
             .get<config.IConfiguration>("maptz.regionfolder");
+
+        let loadedConfigO = Object.assign(
+            {}, loadedConfig
+        );
+
         let config: config.IConfiguration = Object.assign(
             {},
             defaultConfig.DefaultConfiguration
         );
         config = Object.assign(config, loadedConfig);
         return config;
+
     }
 
     public getConfigurationForLanguage(languageId: string): config.ILanguageConfiguration | null {
