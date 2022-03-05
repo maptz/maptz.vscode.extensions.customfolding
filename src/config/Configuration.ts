@@ -48,9 +48,9 @@ export class ConfigurationService {
             .getConfiguration()
             .get<config.IConfiguration>("maptz.regionfolder");
 
-        let loadedConfigO = Object.assign(
-            {}, loadedConfig
-        );
+        // let loadedConfigO = Object.assign(
+        //     {}, loadedConfig
+        // );
 
         let config: config.IConfiguration = Object.assign(
             {},
