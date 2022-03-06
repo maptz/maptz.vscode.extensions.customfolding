@@ -2,12 +2,12 @@
     "name": "regionfolder",
     "displayName": "#region folding for VS Code",
     "description": "Provides folding for text wrapped with #region comments in VS Code.",
-    "version": "1.0.16",
+    "version": "1.0.17",
     "homepage": "https://raw.githubusercontent.com/maptz/Maptz.VSCode.Extensions.customfolding/master/ReadMe.md",
     "repository": "https://github.com/maptz/Maptz.VSCode.Extensions.customfolding",
     "publisher": "maptz",
     "engines": {
-        "vscode": "^1.45.0"
+        "vscode": "^1.65.0"
     },
     "categories": [
         "Other"
