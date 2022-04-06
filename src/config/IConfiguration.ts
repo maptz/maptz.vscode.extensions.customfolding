@@ -7,7 +7,7 @@ export interface ILanguageConfiguration extends IFoldConfiguration {
 }
 
 
-export interface IFoldConfiguration{
+export interface IFoldConfiguration {
   foldEnd: string;
   foldEndRegex: string;
   foldStart: string;
@@ -19,11 +19,11 @@ export interface IConfiguration {
   [languageName: string]: ILanguageConfiguration;
 }
 
-export interface IOptionsConfiguration{
+export interface IOptionsConfiguration {
   collapseDefaultRegionsOnOpen: boolean;
 }
 
-export let DefaultOptionsConfiguration : IOptionsConfiguration = {
+export let DefaultOptionsConfiguration: IOptionsConfiguration = {
   collapseDefaultRegionsOnOpen: true
 };
 
