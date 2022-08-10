@@ -123,6 +123,12 @@ export let DefaultConfiguration: IConfig.IConfiguration = {
     defaultFoldStartRegex: "\\<!--[\\s]*#region\\(collapsed\\)[\\s]*(.*)",
     foldStartRegex: "\\<!--[\\s]*#region[\\s]*(.*)"
   },
+  "[nsis]": {
+    foldEnd: "; #endregion",
+    foldEndRegex: ";*[\\s]*#endregion",
+    foldStart: "; #region [NAME]",
+    foldStartRegex: ";*[\\s]*#region[\\s]*(.*)", ////Regex used to find fold start text.
+  },
   "[oraclesql]": {
     foldEnd: "/* #endregion */",
     foldEndRegex: "/* [\\s]*#endregion [\\s]*(.*)*/",
