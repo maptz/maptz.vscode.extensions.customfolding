@@ -94,7 +94,7 @@
         "@typescript-eslint/parser": "^5.12.1",
         "eslint": "^8.9.0",
         "glob": "^7.2.0",
-        "mocha": "^9.2.1",
+        "mocha": "^9.2.2",
         "typescript": "^4.5.5",
         "@vscode/test-electron": "^2.1.2"
     }
