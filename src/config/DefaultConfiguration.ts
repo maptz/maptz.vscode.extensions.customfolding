@@ -1,6 +1,10 @@
 import *  as IConfig from "./IConfiguration";
 
-export let DefaultConfiguration: IConfig.IConfiguration = {
+export let defaultOptionsConfiguration: IConfig.IOptionsConfiguration = {
+  collapseDefaultRegionsOnOpen: true
+};
+
+export let defaultConfiguration: IConfig.IConfiguration = {
   "[ansible]": {
     foldEnd: "# endregion",
     foldEndRegex: "[\\s]*#[\\s]*endregion",
@@ -13,7 +17,7 @@ export let DefaultConfiguration: IConfig.IConfiguration = {
     foldStart: "; #region [NAME]",
     foldStartRegex: ";[\\s]*#region[\\s]*(.*)"
   },
-  "[aspnetcorerazor]":{
+  "[aspnetcorerazor]": {
     foldEnd: "@* //#endregion *@",
     foldEndRegex: "@\\*[\\s]*//[\\s]*#endregion",
     foldStart: "@* //#region [NAME]*@",

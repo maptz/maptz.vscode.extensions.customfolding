@@ -2,7 +2,7 @@
     "name": "regionfolder",
     "displayName": "#region folding for VS Code",
     "description": "Provides folding for text wrapped with #region comments in VS Code.",
-    "version": "1.0.17",
+    "version": "1.0.19",
     "homepage": "https://raw.githubusercontent.com/maptz/Maptz.VSCode.Extensions.customfolding/master/ReadMe.md",
     "repository": "https://github.com/maptz/Maptz.VSCode.Extensions.customfolding",
     "publisher": "maptz",
@@ -21,35 +21,35 @@
         "commands": [
             {
                 "command": "regionfolder.collapseAllRegions",
-                "title": "Collapse all #regions."
+                "title": "Region folding: Collapse all #regions."
             },
             {
                 "command": "regionfolder.collapseDefault",
-                "title": "Collapse default #regions."
+                "title": "Region folding: Collapse default #regions."
             },
             {
                 "command": "regionfolder.deleteRegion",
-                "title": "Delete current #region tags and contents"
+                "title": "Region folding: Delete current #region tags and contents"
             },
             {
                 "command": "regionfolder.removeCurrentRegionTags",
-                "title": "Delete current #region tags"
+                "title": "Region folding: Delete current #region tags"
             },
             {
                 "command": "regionfolder.wrapWithRegion",
-                "title": "Wrap selection with #region tag."
+                "title": "Region folding: Wrap selection with #region tag."
             },
             {
                 "command": "regionfolder.wrapWithRegionAndComment",
-                "title": "Wrap with #region tag and comment."
+                "title": "Region folding: Wrap with #region tag and comment."
             },
             {
                 "command": "regionfolder.selectCurrentRegion",
-                "title": "Select current #region."
+                "title": "Region folding: Select current #region."
             },
             {
                 "command": "regionfolder.selectCurrentRegionContents",
-                "title": "Select current #region contents."
+                "title": "Region folding: Select current #region contents."
             }
         ],
         "keybindings": [
@@ -65,7 +65,7 @@
             }
         ],
         "configuration": {
-            "title": "Maptz region folding configuration",
+            "title": "Region folding: Maptz region folding configuration",
             "type": "object",
             "properties": {
                 "maptz.regionfolder": {

@@ -43,6 +43,21 @@ export class ConfigurationService {
     }
 
 
+    public getOptions() {
+        let loadedConfig = <config.IOptionsConfiguration>vscode.workspace
+            .getConfiguration()
+            .get<config.IOptionsConfiguration>("maptz.regionfolder");
+        
+        let config: config.IOptionsConfiguration = Object.assign(
+            {},
+            defaultConfig.defaultOptionsConfiguration
+        );
+
+        config = Object.assign(config, loadedConfig);
+
+        return config;
+    }
+
     public loadConfiguration() {
         let loadedConfig = <config.IConfiguration>vscode.workspace
             .getConfiguration()
@@ -54,8 +69,9 @@ export class ConfigurationService {
 
         let config: config.IConfiguration = Object.assign(
             {},
-            defaultConfig.DefaultConfiguration
+            defaultConfig.defaultConfiguration
         );
+        
         config = Object.assign(config, loadedConfig);
         return config;
 

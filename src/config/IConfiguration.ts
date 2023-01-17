@@ -15,7 +15,7 @@ export interface IFoldConfiguration {
   isFoldedByDefault?: boolean;
 }
 
-export interface IConfiguration {
+export interface IConfiguration  {
   [languageName: string]: ILanguageConfiguration;
 }
 
@@ -23,7 +23,4 @@ export interface IOptionsConfiguration {
   collapseDefaultRegionsOnOpen: boolean;
 }
 
-export let DefaultOptionsConfiguration: IOptionsConfiguration = {
-  collapseDefaultRegionsOnOpen: true
-};
 

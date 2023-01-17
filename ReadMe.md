@@ -58,7 +58,7 @@ Alternatively, open Visual Studio code, press `Ctrl+P` and type:
 <!-- #endregion -->
 
 ## Features
-### Feature - Default Folding (Preview)
+### Feature - Default Folding
 
 A new feature is the notion of `default folds`. Default folds define regions which will be collapsed whenever the file is opened. In the current preview version, default folds are only collapsed when the  `regionfolder.collapseDefault` command is issued from the command palette. 
 
@@ -85,7 +85,15 @@ The settings for this default fold are below. You can either put this in your Wo
     }
 ```
 
-### Feature - Per-Language Disabling  (Preview)
+You can now use the `collapseDefaultRegionsOnOpen` setting to determine whether regions are collapsed by default when a new file is opened.
+
+```
+{
+    "maptz.regionfolder.collapseDefaultRegionsOnOpen": true
+}
+```
+
+### Feature - Per-Language Disabling
 
 You can now turn off custom folding on a per-language basis. To do this, you need to add `disableFolding` to the settings for the particular language. You will need to restart VS Code for the changes to take effect. 
 

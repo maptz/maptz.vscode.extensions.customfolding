@@ -5,6 +5,14 @@ All notable changes to the extension will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+### Version 1.0.19
+
+* Added `collapseDefaultRegionsOnOpen` setting.
+
+### Version 1.0.18
+
+* Updated command names to be consistent with normal pattern for executing commands in VSCode. Thanks to [HenryC-3](https://github.com/HenryC-3)
+
 ### Version 1.0.16
 
 * Added support for ['jsonc']. Thanks to [riddlew](https://github.com/riddlew).

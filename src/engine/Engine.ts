@@ -271,13 +271,24 @@ export class Engine {
         this._configService = configService;
         this._foldingRangeProvider = this.registerFoldingRangeProvider();
 
+
+
+
+
         this._fileMonitor = new FileMonitor();
         this._fileMonitor.onFileOpened.add(function (doc) {
             console.log("File opened: " + doc.fileName + " lid: " + doc.languageId);
             if (doc.languageId) {
                 //HMM HACK! No texteditor defined for document when this event has been called. 
                 var collapseOnlyDefaults = true;
-                setTimeout(() => { self.collapseAllRegions(doc, collapseOnlyDefaults); }, 10);
+                setTimeout(() => {
+                    var options = self._configService.getOptions();
+                    const collapseOnOpen = !!options.collapseDefaultRegionsOnOpen;
+                    console.log("maptz.regionfolder.collapseDefaultRegionsOnOpen:" + collapseOnOpen);
+                    if (collapseOnOpen) {
+                        self.collapseAllRegions(doc, collapseOnlyDefaults);
+                    }
+                }, 10);
 
             }
         });
@@ -292,7 +303,12 @@ export class Engine {
             console.log("FileMonitor has detected change in language: " + newLID);
 
             if (newLID) {
-                self.collapseAllRegions(doc);
+                const options = self._configService.getOptions();
+                const collapseOnOpen = !!options.collapseDefaultRegionsOnOpen;
+                console.log("maptz.regionfolder.collapseDefaultRegionsOnOpen: " + collapseOnOpen);
+                if (collapseOnOpen) {
+                    self.collapseAllRegions(doc);
+                }
             }
         });
 
