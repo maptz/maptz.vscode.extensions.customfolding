@@ -21,6 +21,7 @@ export interface IConfiguration  {
 
 export interface IOptionsConfiguration {
   collapseDefaultRegionsOnOpen: boolean;
+  showRegionsInOutline: boolean;
 }
 
 

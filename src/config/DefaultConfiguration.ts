@@ -1,7 +1,8 @@
 import *  as IConfig from "./IConfiguration";
 
 export let defaultOptionsConfiguration: IConfig.IOptionsConfiguration = {
-  collapseDefaultRegionsOnOpen: true
+  collapseDefaultRegionsOnOpen: true,
+  showRegionsInOutline: false
 };
 
 export let defaultConfiguration: IConfig.IConfiguration = {
@@ -32,20 +33,20 @@ export let defaultConfiguration: IConfig.IConfiguration = {
   "[cpp]": {
     foldEnd: "/* #endregion */",
     foldEndRegex: "/\\*[\\s]*#endregion",
-    foldStart: "/* #region  [NAME] */",
+    foldStart: "/* #region [NAME] */",
     foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
   },
   "[csharp]": {
     foldEnd: "/* #endregion */",
     foldEndRegex: "/\\*[\\s]*#endregion",
-    foldStart: "/* #region  [NAME] */",
+    foldStart: "/* #region [NAME] */",
     foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$",
     defaultFoldStartRegex: "^[\\s]*/\\*[\\s]*#regiond[\\s]*(.*)[\\s]*\\*/[\\s]*$"
   },
   "[css]": {
     foldEnd: "/* #endregion */",
     foldEndRegex: "/\\*[\\s]*#endregion",
-    foldStart: "/* #region  [NAME] */",
+    foldStart: "/* #region [NAME] */",
     foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
   },
   "[cmake]": {
@@ -87,7 +88,7 @@ export let defaultConfiguration: IConfig.IConfiguration = {
   "[javascriptreact]": {
     foldEnd: "/* #endregion */",
     foldEndRegex: "/\\*[\\s]*#endregion",
-    foldStart: "/* #region  [NAME] */",
+    foldStart: "/* #region [NAME] */",
     foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
   },
   "[java]": {
@@ -99,7 +100,7 @@ export let defaultConfiguration: IConfig.IConfiguration = {
   "[json]": {
     foldEnd: "/* #endregion */",
     foldEndRegex: "/\\*[\\s]*#endregion",
-    foldStart: "/* #region  [NAME] */",
+    foldStart: "/* #region [NAME] */",
     foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
   },
   "[jsonc]": {
@@ -117,7 +118,7 @@ export let defaultConfiguration: IConfig.IConfiguration = {
   "[less]": {
     foldEnd: "/* #endregion */",
     foldEndRegex: "/\\*[\\s]*#endregion",
-    foldStart: "/* #region  [NAME] */",
+    foldStart: "/* #region [NAME] */",
     foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
   },
   "[markdown]": {
@@ -142,7 +143,7 @@ export let defaultConfiguration: IConfig.IConfiguration = {
   "[php]": {
     foldEnd: "/* #endregion */",
     foldEndRegex: "/\\*[\\s]*#endregion",
-    foldStart: "/* #region  [NAME] */",
+    foldStart: "/* #region [NAME] */",
     foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
   },
   "[powershell]": {
@@ -172,13 +173,13 @@ export let defaultConfiguration: IConfig.IConfiguration = {
   "[rust]": {
     foldEnd: "/* #endregion */",
     foldEndRegex: "/\\*[\\s]*#endregion",
-    foldStart: "/* #region  [NAME] */",
+    foldStart: "/* #region [NAME] */",
     foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
   },
   "[sass]": {
     foldEnd: "/* #endregion */",
     foldEndRegex: "/\\*[\\s]*#endregion",
-    foldStart: "/* #region  [NAME] */",
+    foldStart: "/* #region [NAME] */",
     foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
   },
   "[scss]": {
@@ -196,7 +197,7 @@ export let defaultConfiguration: IConfig.IConfiguration = {
   "[sql]": {
     foldEnd: "/* #endregion */",
     foldEndRegex: "/\\*[\\s]*#endregion",
-    foldStart: "/* #region  [NAME] */",
+    foldStart: "/* #region [NAME] */",
     foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
   },
   "[swift]": {
@@ -208,13 +209,13 @@ export let defaultConfiguration: IConfig.IConfiguration = {
   "[typescript]": {
     foldEnd: "/* #endregion */",
     foldEndRegex: "/\\*[\\s]*#endregion",
-    foldStart: "/* #region  [NAME] */",
+    foldStart: "/* #region [NAME] */",
     foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
   },
   '[typescriptreact]': {
     foldEnd: "/* #endregion */",
     foldEndRegex: "/\\*[\\s]*#endregion",
-    foldStart: "/* #region  [NAME] */",
+    foldStart: "/* #region [NAME] */",
     foldStartRegex: "^[\\s]*/\\*[\\s]*#region[\\s]*(.*)[\\s]*\\*/[\\s]*$"
   },
   "[twig]": {
