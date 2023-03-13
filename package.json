@@ -7,7 +7,7 @@
     "repository": "https://github.com/maptz/Maptz.VSCode.Extensions.customfolding",
     "publisher": "maptz",
     "engines": {
-        "vscode": "^1.65.0"
+        "vscode": "^1.76.0"
     },
     "categories": [
         "Other"
