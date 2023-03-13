@@ -198,7 +198,7 @@ export class Engine {
     private async foldLines(document: vscode.TextDocument, foldLines: Array<number>) {
         var str = "";
         foldLines.forEach(p => str += p + ",");
-        console.log("folding lines: " + str);
+        // console.log("folding lines: " + str);
 
         const textEditor = this.getTextEditor(document);
         if (!textEditor) { return; }
@@ -207,7 +207,7 @@ export class Engine {
         for (const lineNumber of foldLines) {
             textEditor.selection = new vscode.Selection(lineNumber, 0, lineNumber, 0);
             await vscode.commands.executeCommand('editor.fold');
-            console.log('folding ' + textEditor.selection.anchor.line);
+            // console.log('folding ' + textEditor.selection.anchor.line);
         }
         textEditor.selection = selection;
         // textEditor.revealRange(textEditor.selection, vscode.TextEditorRevealType.InCenter);
@@ -250,6 +250,7 @@ export class Engine {
     private registerFoldingRangeProvider() {
         const supportedLanguages = this._configService.getSupportedLanguages();
         const foldingRangeProvider = new Maptz.MyFoldingRangeProvider(this._configService);
+        console.log("Registering folding range provider");
         vscode.languages.registerFoldingRangeProvider(
             supportedLanguages,
             foldingRangeProvider

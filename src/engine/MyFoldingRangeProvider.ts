@@ -44,7 +44,7 @@ export class MyFoldingRangeProvider implements vscode.FoldingRangeProvider {
   ): vscode.FoldingRange[] {
     const regionProvider = new r.RegionProvider(this.configurationService);
     var regions = regionProvider.getRegions(document);
-
+    
     var crs: vscode.FoldingRange[] = [];
     for (let region of regions.completedRegions) {
       var foldingRange = new vscode.FoldingRange(
@@ -52,9 +52,10 @@ export class MyFoldingRangeProvider implements vscode.FoldingRangeProvider {
         <number>region.lineEnd,
         vscode.FoldingRangeKind.Region
       );
+      console.log(`FoldingRangeProvider sending range: ${region.lineStart}-${region.lineEnd}`);
       crs.push(foldingRange);
     }
-
+    
 
     return crs;
   }

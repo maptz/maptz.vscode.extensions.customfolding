@@ -95,7 +95,7 @@ export class RegionProvider {
 
     public getRegions(document: vscode.TextDocument): { completedRegions: CustomRegion[], errors: string[] } {
         const languageId = document.languageId;
-        console.log(`Getting regions for language ${languageId}.`);
+        console.log(`RegionProvider.getRegions - Getting regions for language ${languageId}.`);
 
         const currentLanguageConfig = this._configurationService.getConfigurationForLanguage(languageId);
         if (!currentLanguageConfig) {
@@ -173,11 +173,7 @@ export class RegionProvider {
             }
         }
 
-
-
-
-
-
+        console.log(`RegionProvider.getRegions - ${completedRegions.length} completed regions.`);
         return {
             completedRegions: completedRegions,
             errors: errors

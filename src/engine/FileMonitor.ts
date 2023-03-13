@@ -154,7 +154,7 @@ export class FileMonitor {
         this._documentDictionary.push(documentRecord);
 
         documentRecord.interval = setTimeout(() => {
-            console.log("DocumentRecord Interval running for doc " + document.fileName);
+            //console.log("DocumentRecord Interval running for doc " + document.fileName);
             const ret = this.findDocumentRecord(document);
             if (!ret.record) { return; }
             if (ret.record.languageId !== document.languageId) {
